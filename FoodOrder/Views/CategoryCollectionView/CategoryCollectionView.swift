@@ -1,0 +1,102 @@
+//
+//  CategoryCollectionView.swift
+//  FoodOrder
+//
+//  Created by Nataliya Mikhailova on 11.07.2023.
+//
+
+import Foundation
+import UIKit
+
+protocol CategoryCollectionViewProtocol: AnyObject {
+    func selectItem(_ index: Int)
+}
+
+class CategoryCollectionView: UIView {
+    
+    private lazy var categoryCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.minimumLineSpacing = 8
+        let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        view.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+        view.delegate = self
+        view.dataSource = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsVerticalScrollIndicator = false
+        view.backgroundColor = .yellow
+        return view
+    }()
+    
+    public var delegate: CategoryCollectionViewProtocol?
+    
+//    public var dataSource: [CategoryCardViewModel] = [] {
+//        didSet {
+//            categoryCollectionView.reloadData()
+//        }
+//    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
+        backgroundColor = .systemBackground
+        addSubviews()
+        layoutConstraints()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addSubviews() {
+        addSubview(categoryCollectionView)
+    }
+    
+    func layoutConstraints() {
+        NSLayoutConstraint.activate([
+            categoryCollectionView.topAnchor.constraint(equalTo: topAnchor),
+            categoryCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            categoryCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            categoryCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
+    }
+}
+
+extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 6
+//        return dataSource.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as!
+        CategoryCollectionViewCell
+//        cell.setup(model: dataSource[indexPath.row])
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
+        let width = collectionView.bounds.width
+//        let height = dataSource[indexPath.row].productCardSize.height + 55
+//        return CGSize(width: width, height: height)
+        return CGSize(width: width, height: 148)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.selectItem(indexPath.row)
+    }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        // Set the minimum line spacing between cells (vertical spacing)
+//        return 10.0 // Adjust the value as needed
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        // Set the minimum inter-item spacing between cells (horizontal spacing)
+//        return 10.0 // Adjust the value as needed
+//    }
+}
+
+
