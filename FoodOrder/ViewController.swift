@@ -5,6 +5,7 @@
 //  Created by Nataliya Mikhailova on 11.07.2023.
 //
 
+import Foundation
 import UIKit
 
 class ViewController: UIViewController {
@@ -16,4 +17,3 @@ class ViewController: UIViewController {
 
 
 }
-
