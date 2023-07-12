@@ -18,10 +18,11 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
     
     let profileButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "person.circle.fill"), for: .normal)
-        button.contentMode = .scaleAspectFill
-        button.backgroundColor = .blue
+        button.setImage(UIImage(named: "cat"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.backgroundColor = .systemBackground
         button.layer.cornerRadius = 22
+        button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -35,7 +36,7 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
     
     private lazy var productCollectionView: ProductCollectionView = {
         let category = ProductCollectionView()
-//        category.delegate = self
+        category.delegate = self
         category.translatesAutoresizingMaskIntoConstraints = false
         return category
     }()
@@ -83,6 +84,21 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
         
         navigationItem.rightBarButtonItem = menuBarItem
         navigationItem.title = CategoryCollectionViewCell().categoryLabel.text
+//        navigationController?.view.tintColor = UIColor.black
+    }
+}
+
+@available(iOS 15.0, *)
+extension CategoryViewController: ProductCollectionViewProtocol {
+    func selectItem(_ index: Int) {
+        let nv = ProductViewController()
+        navigationController?.present(nv, animated: true)
+//        navigationController?.pushViewController(nv, animated: true)
+        navigationItem.backBarButtonItem =
+        UIBarButtonItem( title: "",
+                         style: .plain,
+                         target: nil,
+                         action: nil)
 //        navigationController?.view.tintColor = UIColor.black
     }
 }

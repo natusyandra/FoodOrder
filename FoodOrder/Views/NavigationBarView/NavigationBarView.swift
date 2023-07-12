@@ -51,10 +51,11 @@ class NavigationBarView: UIStackView {
     
     private lazy var profileButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "person.circle.fill"), for: .normal)
-        button.contentMode = .scaleAspectFill
-        button.backgroundColor = .blue
+        button.setImage(UIImage(named: "cat"), for: .normal)
+        button.contentMode = .scaleAspectFit
+        button.backgroundColor = .systemBackground
         button.layer.cornerRadius = 22
+        button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -108,12 +109,6 @@ class NavigationBarView: UIStackView {
     }
         
     private func setupSubviews() {
-//        layer.masksToBounds = true
-//        addSubview(locationImage)
-//        addSubview(locationLabel)
-//        addSubview(dateLabel)
-//        addSubview(profileButton)
-        
         backgroundColor = .green
         
         translatesAutoresizingMaskIntoConstraints = false
@@ -136,34 +131,8 @@ class NavigationBarView: UIStackView {
             locationImage.widthAnchor.constraint(equalToConstant: 24),
             locationImage.heightAnchor.constraint(equalToConstant: 24),
             
-            
             profileButton.widthAnchor.constraint(equalToConstant: 44),
             profileButton.heightAnchor.constraint(equalToConstant: 44),
-            
-            
-
-//            locationImage.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-//            locationImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-//            locationImage.widthAnchor.constraint(equalToConstant: 24),
-//            locationImage.heightAnchor.constraint(equalToConstant: 24),
-//
-//            locationLabel.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-//            locationLabel.leftAnchor.constraint(equalTo: locationImage.rightAnchor, constant: 4),
-//
-//            dateLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 4),
-//            dateLabel.leftAnchor.constraint(equalTo: locationImage.rightAnchor, constant: 4),
-            
-//            profileButton.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-//            profileButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
-//            profileButton.widthAnchor.constraint(equalToConstant: 44),
-//            profileButton.heightAnchor.constraint(equalToConstant: 44),
-//
-//            profileButton.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-//            profileButton.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-//            profileButton.widthAnchor.constraint(equalToConstant: 44),
-////            profileButton.heightAnchor.constraint(equalToConstant: 44),
-//            profileButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-//            profileButton.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
 }
