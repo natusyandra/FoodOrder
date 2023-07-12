@@ -11,7 +11,7 @@ import UIKit
 class CategoryCollectionViewCell: UICollectionViewCell {
     static let identifier = "CategoryCollectionViewCell"
     
-    private var categoryLabel: UILabel = {
+    public var categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "KAtegor"
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -33,14 +33,14 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(categoryImage)
         contentView.addSubview(categoryLabel)
         contentView.layer.cornerRadius = 10
-        layoutConstraints()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func layoutConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             
             categoryLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12),
