@@ -57,27 +57,14 @@ class MainViewController: UIViewController, MainViewProtocol {
 
 extension MainViewController: CategoryCollectionViewProtocol {
     func selectItem(_ index: Int) {
-        let x = UIViewController()
-        x.view.backgroundColor = .red
-        x.navigationItem.title = "TEST"
-        
-        
-        let button = UIButton()
-        button.setImage(UIImage(systemName: "person.circle.fill"), for: .normal)
-        button.contentMode = .scaleAspectFill
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 22
-        button.translatesAutoresizingMaskIntoConstraints = false
-//        button.frame = CGRect(origin: .zero, size: CGSize(width: 44, height: 44))
-        
-        let menuBarItem = UIBarButtonItem(customView: button)
-        menuBarItem.customView?.translatesAutoresizingMaskIntoConstraints = false
-        menuBarItem.customView?.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        menuBarItem.customView?.widthAnchor.constraint(equalToConstant: 44).isActive = true
-        
-        x.navigationItem.rightBarButtonItem = menuBarItem
-        
-        navigationController?.pushViewController(x, animated: true)
+        let nv = CategoryViewController()
+        navigationController?.pushViewController(nv, animated: true)
+        navigationItem.backBarButtonItem =
+        UIBarButtonItem( title: "",
+                         style: .plain,
+                         target: nil,
+                         action: nil)
+        navigationController?.view.tintColor = UIColor.black
     }
 }
 
