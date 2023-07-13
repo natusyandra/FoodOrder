@@ -8,6 +8,7 @@
 import Foundation
 
 protocol ProductRouterProtocol: AnyObject {
+
 }
 
 class ProductRouter: ProductRouterProtocol {
@@ -16,5 +17,5 @@ class ProductRouter: ProductRouterProtocol {
     
     init(viewController: ProductViewController) {
         self.viewController = viewController
-    }
+    }    
 }

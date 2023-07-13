@@ -80,9 +80,9 @@ extension ProductCollectionView: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         let width = collectionView.bounds.width/3.25
-//        let height = width
+        let height = collectionView.bounds.height/4.7
 
-        return CGSize(width: width, height: 144)
+        return CGSize(width: width, height: height)
         
 //        let width = collectionView.bounds.width
 //        let height = dataSource[indexPath.row].productCardSize.height + 55

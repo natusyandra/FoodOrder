@@ -57,6 +57,7 @@ class NavigationBarView: UIStackView {
         button.layer.cornerRadius = 22
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = false
         return button
     }()
     

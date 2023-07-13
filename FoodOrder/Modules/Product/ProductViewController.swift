@@ -17,7 +17,8 @@ class ProductViewController: UIViewController, ProductViewProtocol {
     
     private lazy var productView: ProductView = {
         let product = ProductView()
-//        product.delegate = self
+        //        product.delegate = self
+        product.layer.cornerRadius = 15
         product.translatesAutoresizingMaskIntoConstraints = false
         return product
     }()
@@ -26,31 +27,40 @@ class ProductViewController: UIViewController, ProductViewProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .black.withAlphaComponent(0.4)
+        //        view.backgroundColor = .blue
         configurator.configure(with: self)
-
+        
         setupSubviews()
         setupConstraints()
+        
+        productView.closeButton.addTarget(self,
+                                          action: #selector(closeButtonTaped),
+                                          for: .touchUpInside)
+        closeButtonTaped()
     }
-
+    
     func setupSubviews() {
         view.addSubview(productView)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(closeButtonTaped))
+        view.addGestureRecognizer(tap)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-
-//            productView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-//            productView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            
+            productView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            productView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
             productView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 183),
             productView.heightAnchor.constraint(equalToConstant: 446),
             productView.widthAnchor.constraint(equalToConstant: 343),
-            productView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
-//            productView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
-//
+            productView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            //
         ])
     }
+    
+    @objc func closeButtonTaped() {
+        dismiss(animated: true)
+    }
 }
-
-
 
