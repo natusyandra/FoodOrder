@@ -9,9 +9,6 @@ import Foundation
 
 protocol ProductPresenterProtocol: AnyObject {
     var router: ProductRouterProtocol! { set get }
-    
-    func loadData()
-    
 }
 
 class ProductPresenter: ProductPresenterProtocol {
@@ -22,9 +19,5 @@ class ProductPresenter: ProductPresenterProtocol {
     
     required init(view: ProductViewProtocol) {
         self.view = view
-    }
-    
-    func loadData() {
-        
     }
 }

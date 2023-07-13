@@ -15,17 +15,21 @@ class ProductCollectionViewCell: UICollectionViewCell {
     private var productImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "eda")
+        image.sizeThatFits(CGSize(width: 87, height: 98))
+        image.backgroundColor = Pallete.backgroundColor
+//        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 20
         return image
     }()
     public var productLabel: UILabel = {
         let label = UILabel()
-        label.text = "Блаблfffff"
+        label.text = "Блаблffffffffffffffffffffff"
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .medium)
-        label.numberOfLines = 2
+        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.numberOfLines = 4
         return label
     }()
     

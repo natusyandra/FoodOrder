@@ -40,6 +40,9 @@
 		15C8BA922A5E7ED700C12C98 /* ProductRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BA912A5E7ED700C12C98 /* ProductRouter.swift */; };
 		15C8BA942A5E7EE500C12C98 /* ProductConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BA932A5E7EE500C12C98 /* ProductConfigurator.swift */; };
 		15C8BA962A5E80B300C12C98 /* ProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BA952A5E80B300C12C98 /* ProductView.swift */; };
+		15C8BA9A2A5EBA2700C12C98 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BA992A5EBA2700C12C98 /* Button.swift */; };
+		15C8BA9C2A5EBA3100C12C98 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BA9B2A5EBA3100C12C98 /* Color.swift */; };
+		15C8BA9E2A5F9AA100C12C98 /* ImageProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BA9D2A5F9AA100C12C98 /* ImageProduct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +81,9 @@
 		15C8BA912A5E7ED700C12C98 /* ProductRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRouter.swift; sourceTree = "<group>"; };
 		15C8BA932A5E7EE500C12C98 /* ProductConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductConfigurator.swift; sourceTree = "<group>"; };
 		15C8BA952A5E80B300C12C98 /* ProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductView.swift; sourceTree = "<group>"; };
+		15C8BA992A5EBA2700C12C98 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		15C8BA9B2A5EBA3100C12C98 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		15C8BA9D2A5F9AA100C12C98 /* ImageProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProduct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +116,7 @@
 		15453B8C2A5D04230087A8B8 /* FoodOrder */ = {
 			isa = PBXGroup;
 			children = (
+				15C8BA982A5EBA1700C12C98 /* Components */,
 				15C8BA5E2A5D0D3D00C12C98 /* Views */,
 				15C8BA542A5D08AA00C12C98 /* Modules */,
 				15453B8D2A5D04230087A8B8 /* AppDelegate.swift */,
@@ -149,12 +156,12 @@
 		15C8BA5E2A5D0D3D00C12C98 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				15C8BA972A5E8FB400C12C98 /* ProductView */,
 				15C8BA842A5E57B900C12C98 /* ProductCollectionView */,
 				15C8BA7E2A5E516300C12C98 /* CategoryProductCollectionView */,
 				15C8BA6B2A5D367F00C12C98 /* CategoryCollectionView */,
 				15C8BA622A5D0FA600C12C98 /* TabBarView */,
 				15C8BA5F2A5D0D4A00C12C98 /* NavigationBarView */,
-				15C8BA952A5E80B300C12C98 /* ProductView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -252,6 +259,24 @@
 			path = Product;
 			sourceTree = "<group>";
 		};
+		15C8BA972A5E8FB400C12C98 /* ProductView */ = {
+			isa = PBXGroup;
+			children = (
+				15C8BA952A5E80B300C12C98 /* ProductView.swift */,
+			);
+			path = ProductView;
+			sourceTree = "<group>";
+		};
+		15C8BA982A5EBA1700C12C98 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				15C8BA992A5EBA2700C12C98 /* Button.swift */,
+				15C8BA9B2A5EBA3100C12C98 /* Color.swift */,
+				15C8BA9D2A5F9AA100C12C98 /* ImageProduct.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -328,11 +353,14 @@
 				15C8BA5D2A5D092C00C12C98 /* MainConfigurator.swift in Sources */,
 				15C8BA5B2A5D091300C12C98 /* MainRouter.swift in Sources */,
 				15C8BA772A5E45B400C12C98 /* CategoryPresenter.swift in Sources */,
+				15C8BA9C2A5EBA3100C12C98 /* Color.swift in Sources */,
+				15C8BA9A2A5EBA2700C12C98 /* Button.swift in Sources */,
 				15C8BA812A5E530900C12C98 /* CategoryProductCollectionView.swift in Sources */,
 				15C8BA752A5E45A600C12C98 /* CategoryViewController.swift in Sources */,
 				15C8BA792A5E45BF00C12C98 /* CategoryInteractor.swift in Sources */,
 				15C8BA592A5D08FF00C12C98 /* MainInteractor.swift in Sources */,
 				15C8BA862A5E57D000C12C98 /* ProductCollectionViewCell.swift in Sources */,
+				15C8BA9E2A5F9AA100C12C98 /* ImageProduct.swift in Sources */,
 				15C8BA962A5E80B300C12C98 /* ProductView.swift in Sources */,
 				15C8BA8E2A5E7EBC00C12C98 /* ProductPresenter.swift in Sources */,
 				15C8BA6D2A5D368900C12C98 /* CategoryCollectionView.swift in Sources */,

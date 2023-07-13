@@ -24,6 +24,7 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
         button.layer.cornerRadius = 22
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.isUserInteractionEnabled = false
         return button
     }()
     
@@ -88,17 +89,20 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
     }
 }
 
-@available(iOS 15.0, *)
 extension CategoryViewController: ProductCollectionViewProtocol {
     func selectItem(_ index: Int) {
-        let nv = ProductViewController()
-        navigationController?.present(nv, animated: true)
-//        navigationController?.pushViewController(nv, animated: true)
-        navigationItem.backBarButtonItem =
-        UIBarButtonItem( title: "",
-                         style: .plain,
-                         target: nil,
-                         action: nil)
+        let vc = ProductViewController()
+        vc.modalPresentationStyle = .overFullScreen
+        navigationController?.present(vc, animated: true)
+//        vc.view.backgroundColor = UIColor.clear // or whatever color.
+//        vc.modalPresentationStyle = .overCurrentContext
+
+//        navigationController?.pushViewController(vc, animated: true)
+//        navigationItem.backBarButtonItem =
+//        UIBarButtonItem( title: "",
+//                         style: .plain,
+//                         target: nil,
+//                         action: nil)
 //        navigationController?.view.tintColor = UIColor.black
     }
 }
