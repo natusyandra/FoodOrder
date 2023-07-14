@@ -8,12 +8,12 @@
 import Foundation
 import UIKit
 
-class ImageProduct: UIImageView {
+class ProductImage: UIImageView {
     
     private var productImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "eda")
-        image.backgroundColor = Pallete.backgroundColor
+        image.backgroundColor = Pallete.backgroundColorImage
 //        image.clipsToBounds = true
         image.contentMode = .scaleAspectFit
         image.layer.cornerRadius = 10

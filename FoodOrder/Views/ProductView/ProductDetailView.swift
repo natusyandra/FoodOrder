@@ -8,15 +8,13 @@
 import Foundation
 import UIKit
 
-class ProductView: UIView {
+class ProductDetailView: UIView {
     
     private var productImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "eda")
-        image.backgroundColor = Pallete.backgroundColor
-//        image.clipsToBounds = true
-        image.contentMode = .scaleAspectFill
-        image.contentMode = .center
+        image.backgroundColor = Pallete.backgroundColorImage
+        image.contentMode = .scaleAspectFit
         image.layer.cornerRadius = 10
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -26,7 +24,6 @@ class ProductView: UIView {
         let button = UIButton()
         button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .black
-//        button.contentMode = .scaleAspectFit
         button.backgroundColor = .white
         button.layer.cornerRadius = 10
         button.layer.masksToBounds = true
@@ -37,7 +34,6 @@ class ProductView: UIView {
     var closeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "dis"), for: .normal)
-//        button.contentMode = .scaleAspectFit
         button.backgroundColor = .white
         button.layer.cornerRadius = 10
         button.layer.masksToBounds = true
@@ -45,43 +41,18 @@ class ProductView: UIView {
         return button
     }()
     
-    private var nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "ffllffllfflflf"
-        //text как в figme
-        label.font = UIFont.init(name: "SF Pro Display", size: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var weightLabel: UILabel = {
-        let label = UILabel()
-        label.text = "303.404"
-        //text как в figme
-        label.font = UIFont.init(name: "SF Pro Display", size: 14)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "lfkffkfkfkfkfkfkfkfleepepdp pdfpdpede;p v;vppd"
-        //text как в figme
-        label.textAlignment = .left
-        label.numberOfLines = 3
-        label.font = UIFont.init(name: "SF Pro Display", size: 14)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    lazy var parametersLabelsVStackView: ProductDetailStack = {
+        let stack = ProductDetailStack()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
     }()
     
     private var addToCartButton: UIButton = {
         let button = UIButton()
         button.setTitle("Добавить в корзину", for: .normal)
         button.tintColor = .white
-//        button.contentMode = .scaleAspectFit
         button.backgroundColor = Pallete.blueColor
         button.layer.cornerRadius = 10
-//        button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -102,10 +73,9 @@ class ProductView: UIView {
         addSubview(productImage)
         addSubview(favoritesButton)
         addSubview(closeButton)
-        addSubview(nameLabel)
-        addSubview(weightLabel)
-        addSubview(descriptionLabel)
+        addSubview(parametersLabelsVStackView)
         addSubview(addToCartButton)
+        parametersLabelsVStackView.spacing = 8
     }
     
     private func setupConstraints() {
@@ -126,19 +96,11 @@ class ProductView: UIView {
             closeButton.widthAnchor.constraint(equalToConstant: 40),
             closeButton.heightAnchor.constraint(equalToConstant: 40),
             closeButton.leftAnchor.constraint(equalTo: favoritesButton.rightAnchor, constant: 8),
-
-            nameLabel.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: 8),
-            nameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            nameLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             
-            weightLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
-            weightLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            
-            descriptionLabel.topAnchor.constraint(equalTo: weightLabel.bottomAnchor, constant: 8),
-            descriptionLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
-            descriptionLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: 62),
-            descriptionLabel.widthAnchor.constraint(equalToConstant: 311),
+            parametersLabelsVStackView.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: 8),
+            parametersLabelsVStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
+            parametersLabelsVStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
+            parametersLabelsVStackView.bottomAnchor.constraint(equalTo: addToCartButton.topAnchor, constant: -16),
             
             addToCartButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             addToCartButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),

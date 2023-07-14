@@ -10,7 +10,8 @@ import UIKit
 
 class Pallete {
     static var blueColor: UIColor = UIColor.hex("#3364E0")
-    static var backgroundColor: UIColor = UIColor.hex("#F8F7F5")
+    static var backgroundColorImage: UIColor = UIColor.hex("#F8F7F5")
+    static var backgroundColorButton: UIColor = UIColor.hex("#EFEEEC")
 }
 
 extension UIColor {

@@ -17,42 +17,43 @@ class CategoryProductCollectionView: UIView {
     private lazy var categoryProductCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         layout.minimumLineSpacing = 8
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(CategoryProductCollectionViewCell.self, forCellWithReuseIdentifier: CategoryProductCollectionViewCell.identifier)
+        view.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         view.delegate = self
         view.dataSource = self
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsHorizontalScrollIndicator = false
-        view.backgroundColor = .yellow
+        view.backgroundColor = .systemBackground
         return view
     }()
     
     public var delegate: CategoryProductCollectionViewProtocol?
     
-//    public var dataSource: [CategoryCardViewModel] = [] {
-//        didSet {
-//            categoryCollectionView.reloadData()
-//        }
-//    }
+    //    public var dataSource: [CategoryCardViewModel] = [] {
+    //        didSet {
+    //            categoryCollectionView.reloadData()
+    //        }
+    //    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        backgroundColor = .orange
-        addSubviews()
-        layoutConstraints()
+        backgroundColor = .systemBackground
+        setupSubviews()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addSubviews() {
+    func setupSubviews() {
         addSubview(categoryProductCollectionView)
+        categoryProductCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .left)
     }
     
-    func layoutConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             categoryProductCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
             categoryProductCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
@@ -63,27 +64,28 @@ class CategoryProductCollectionView: UIView {
 }
 
 extension CategoryProductCollectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 10
-//        return dataSource.count
+        //        return dataSource.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryProductCollectionViewCell.identifier, for: indexPath) as!
         CategoryProductCollectionViewCell
-//        cell.setup(model: dataSource[indexPath.row])
+        //        cell.setup(model: dataSource[indexPath.row])
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-//        let width = collectionView.bounds.width
-//        let height = dataSource[indexPath.row].productCardSize.height + 55
-//        return CGSize(width: width, height: height)
-        return CGSize(width: 80, height: 35)
+//                let width = collectionView.bounds.width/2
+        let width = (collectionView.bounds.width - 56)/3.7
+        //        let height = dataSource[indexPath.row].productCardSize.height + 55
+        //        return CGSize(width: width, height: height)
+        return CGSize(width: width, height: 35)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.selectItem(indexPath.row)
     }

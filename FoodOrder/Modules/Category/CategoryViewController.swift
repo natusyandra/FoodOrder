@@ -30,7 +30,7 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
     
     private lazy var categoryCollectionView: CategoryProductCollectionView = {
         let category = CategoryProductCollectionView()
-//        category.delegate = self
+        //        category.delegate = self
         category.translatesAutoresizingMaskIntoConstraints = false
         return category
     }()
@@ -46,14 +46,14 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .systemBackground
         configurator.configure(with: self)
-
+        
         setupSubviews()
         setupConstraints()
         addSettingsNavigation()
     }
-
+    
     func setupSubviews() {
         view.addSubview(categoryCollectionView)
         view.addSubview(productCollectionView)
@@ -64,16 +64,15 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
             
             categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
             categoryCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
-//            categoryCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            //            categoryCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             categoryCollectionView.widthAnchor.constraint(equalToConstant: 10),
             categoryCollectionView.heightAnchor.constraint(equalToConstant: 35),
             categoryCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
             
             productCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             productCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            productCollectionView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 16),
+            productCollectionView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 0),
             productCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
-            
         ])
     }
     
@@ -85,7 +84,6 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
         
         navigationItem.rightBarButtonItem = menuBarItem
         navigationItem.title = CategoryCollectionViewCell().categoryLabel.text
-//        navigationController?.view.tintColor = UIColor.black
     }
 }
 
@@ -94,16 +92,6 @@ extension CategoryViewController: ProductCollectionViewProtocol {
         let vc = ProductViewController()
         vc.modalPresentationStyle = .overFullScreen
         navigationController?.present(vc, animated: true)
-//        vc.view.backgroundColor = UIColor.clear // or whatever color.
-//        vc.modalPresentationStyle = .overCurrentContext
-
-//        navigationController?.pushViewController(vc, animated: true)
-//        navigationItem.backBarButtonItem =
-//        UIBarButtonItem( title: "",
-//                         style: .plain,
-//                         target: nil,
-//                         action: nil)
-//        navigationController?.view.tintColor = UIColor.black
     }
 }
 

@@ -11,21 +11,19 @@ import UIKit
 class ProductCollectionViewCell: UICollectionViewCell {
     static let identifier = "ProductCollectionViewCell"
     
-    
     private var productImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "eda")
-        image.sizeThatFits(CGSize(width: 87, height: 98))
-        image.backgroundColor = Pallete.backgroundColor
-//        image.clipsToBounds = true
+        image.backgroundColor = Pallete.backgroundColorImage
+        image.clipsToBounds = true
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.cornerRadius = 20
+        image.layer.cornerRadius = 10
         return image
     }()
     public var productLabel: UILabel = {
         let label = UILabel()
-        label.text = "Блаблffffffffffffffffffffff"
+        label.text = "Блаблfffffffffffffffffffffff"
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14, weight: .regular)
@@ -35,10 +33,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super .init(frame: frame)
-        contentView.backgroundColor = .systemBackground
-        contentView.clipsToBounds = true
-        contentView.addSubview(productImage)
-        contentView.addSubview(productLabel)
+        setupSubviews()
         setupConstraints()
     }
     
@@ -46,20 +41,24 @@ class ProductCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setupSubviews() {
+        contentView.backgroundColor = .systemBackground
+        contentView.clipsToBounds = true
+        contentView.addSubview(productImage)
+        contentView.addSubview(productLabel)
+    }
+    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             
             productImage.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            productImage.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            productImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
             productImage.heightAnchor.constraint(equalToConstant: 109),
-            productImage.widthAnchor.constraint(equalToConstant: 109),
-//            productImage.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-//            productImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-            productImage.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             productLabel.topAnchor.constraint(equalTo: productImage.bottomAnchor, constant: 5),
             productLabel.leftAnchor.constraint(equalTo: leftAnchor),
-            productLabel.rightAnchor.constraint(equalTo: rightAnchor),
-            productLabel.bottomAnchor.constraint(equalTo: bottomAnchor)
+            productLabel.rightAnchor.constraint(equalTo: rightAnchor)
         ])
     }
     
