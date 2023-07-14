@@ -16,6 +16,11 @@ class MainViewController: UIViewController, MainViewProtocol {
     var presenter: MainPresenterProtocol!
     let configurator: MainConfiguratorProtocol = MainConfigurator()
     
+    private lazy var navigationBar: NavigationBarView = {
+        let bar = NavigationBarView()
+        return bar
+    }()
+    
     private lazy var categoryCollectionView: CategoryCollectionView = {
         let category = CategoryCollectionView()
         category.delegate = self
@@ -23,18 +28,16 @@ class MainViewController: UIViewController, MainViewProtocol {
         return category
     }()
     
-    private lazy var navigationBar: NavigationBarView = {
-        let bar = NavigationBarView()
-        return bar
-    }()
-    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .red
+        view.backgroundColor = .systemBackground
         configurator.configure(with: self)
         navigationItem.titleView = navigationBar
+        navigationBar.layer.shadowColor = CGColor(gray: 0, alpha: 0)
+        navigationBar.layer.borderWidth = 0
+        navigationBar.layer.borderColor = CGColor(gray: 0, alpha: 0)
         
         setupSubviews()
         setupConstraints()
@@ -47,7 +50,7 @@ class MainViewController: UIViewController, MainViewProtocol {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             
-            categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             categoryCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             categoryCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             categoryCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),

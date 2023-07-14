@@ -11,6 +11,13 @@ import UIKit
 class CategoryCollectionViewCell: UICollectionViewCell {
     static let identifier = "CategoryCollectionViewCell"
     
+    private var categoryImage: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "food")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
     public var categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "KAtegor"
@@ -19,25 +26,22 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private var categoryImage: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "food")
-        image.translatesAutoresizingMaskIntoConstraints = false
-        return image
-    }()
-    
     override init(frame: CGRect) {
         super .init(frame: frame)
-        contentView.backgroundColor = .systemBackground
-        contentView.clipsToBounds = true
-        contentView.addSubview(categoryImage)
-        contentView.addSubview(categoryLabel)
-        contentView.layer.cornerRadius = 10
+        setupSubviews()
         setupConstraints()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setupSubviews() {
+        contentView.backgroundColor = .systemBackground
+        contentView.clipsToBounds = true
+        contentView.addSubview(categoryImage)
+        contentView.addSubview(categoryLabel)
+        contentView.layer.cornerRadius = 10
     }
     
     func setupConstraints() {

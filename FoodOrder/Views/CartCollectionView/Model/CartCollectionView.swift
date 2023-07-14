@@ -1,27 +1,25 @@
 //
-//  ProductCollectionView.swift
+//  CartCollectionView.swift
 //  FoodOrder
 //
-//  Created by Nataliya Mikhailova on 12.07.2023.
+//  Created by Nataliya Mikhailova on 13.07.2023.
 //
-
 import Foundation
 import UIKit
 
-protocol ProductCollectionViewProtocol: AnyObject {
+protocol CartCollectionViewProtocol: AnyObject {
     func selectItem(_ index: Int)
 }
 
-class ProductCollectionView: UIView {
+class CartCollectionView: UIView {
     
-    private lazy var productCollectionView: UICollectionView = {
+    private lazy var cartCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        //        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 8
+        layout.minimumLineSpacing = 16
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.identifier)
-        view.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+        view.register(CartCollectionViewCell.self, forCellWithReuseIdentifier: CartCollectionViewCell.identifier)
+        view.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
         view.delegate = self
         view.dataSource = self
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +28,7 @@ class ProductCollectionView: UIView {
         return view
     }()
     
-    public var delegate: ProductCollectionViewProtocol?
+    public var delegate: CartCollectionViewProtocol?
     
     //    public var dataSource: [CategoryCardViewModel] = [] {
     //        didSet {
@@ -50,38 +48,37 @@ class ProductCollectionView: UIView {
     }
     
     func setupSubviews() {
-        addSubview(productCollectionView)
+        addSubview(cartCollectionView)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            productCollectionView.topAnchor.constraint(equalTo: topAnchor),
-            productCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-            productCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-            productCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            cartCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            cartCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            cartCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            cartCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
         ])
     }
 }
 
-extension ProductCollectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension CartCollectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return 10
         //        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.identifier, for: indexPath) as!
-        ProductCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CartCollectionViewCell.identifier, for: indexPath) as!
+        CartCollectionViewCell
         //        cell.setup(model: dataSource[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-        let width = (collectionView.bounds.width - 16)/3
-        
-        return CGSize(width: width, height: 150)
+        let width = collectionView.bounds.width
+        return CGSize(width: width, height: 62)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -90,14 +87,6 @@ extension ProductCollectionView: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets.zero
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
     }
 }
 

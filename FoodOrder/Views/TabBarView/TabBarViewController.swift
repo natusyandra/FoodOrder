@@ -13,17 +13,14 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBar.backgroundColor = .systemBackground
-
-        //        tabBar.layer.cornerRadius = 20
-        //        view.layer.shadowRadius = 20
         settingsForViewControllers()
     }
     
     func settingsForViewControllers() {
         viewControllers = [
-            createNavController(for: MainViewController(), title: "Главная", image: UIImage(named: "main") ?? .init()),
-            createNavController(for: ViewController(), title: "Поиск", image: UIImage(named: "search") ?? .init()),
-            createNavController(for: ViewController(), title: "Корзина", image: UIImage(named: "bag") ?? .init()),
+            createNavController(for: MainViewController(), title: "Главная", image: UIImage(named: "mains") ?? .init()),
+            createNavController(for: ViewController(), title: "Поиск", image: UIImage(named: "searchs") ?? .init()),
+            createNavController(for: CartViewController(), title: "Корзина", image: UIImage(named: "bag") ?? .init()),
             createNavController(for: ViewController(), title: "Аккаунт", image: UIImage(systemName: "person.circle") ?? .init())
         ]
     }

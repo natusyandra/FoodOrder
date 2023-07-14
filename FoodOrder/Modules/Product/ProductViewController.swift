@@ -15,8 +15,8 @@ class ProductViewController: UIViewController, ProductViewProtocol {
     var presenter: ProductPresenterProtocol!
     let configurator: ProductConfiguratorProtocol = ProductConfigurator()
     
-    private lazy var productView: ProductView = {
-        let product = ProductView()
+    private lazy var productDetailView: ProductDetailView = {
+        let product = ProductDetailView()
         //        product.delegate = self
         product.layer.cornerRadius = 15
         product.translatesAutoresizingMaskIntoConstraints = false
@@ -28,20 +28,19 @@ class ProductViewController: UIViewController, ProductViewProtocol {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black.withAlphaComponent(0.4)
-        //        view.backgroundColor = .blue
         configurator.configure(with: self)
         
         setupSubviews()
         setupConstraints()
         
-        productView.closeButton.addTarget(self,
+        productDetailView.closeButton.addTarget(self,
                                           action: #selector(closeButtonTaped),
                                           for: .touchUpInside)
         closeButtonTaped()
     }
     
     func setupSubviews() {
-        view.addSubview(productView)
+        view.addSubview(productDetailView)
         let tap = UITapGestureRecognizer(target: self, action: #selector(closeButtonTaped))
         view.addGestureRecognizer(tap)
     }
@@ -49,13 +48,10 @@ class ProductViewController: UIViewController, ProductViewProtocol {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             
-            productView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
-            productView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            productView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: 183),
-            productView.heightAnchor.constraint(equalToConstant: 446),
-            productView.widthAnchor.constraint(equalToConstant: 343),
-            productView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            //
+            productDetailView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
+            productDetailView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
+            productDetailView.widthAnchor.constraint(equalToConstant: 343),
+            productDetailView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     

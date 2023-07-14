@@ -26,7 +26,7 @@ class NavigationBarView: UIStackView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         // вынести в презентер
@@ -63,13 +63,6 @@ class NavigationBarView: UIStackView {
     
     let currentDate = Date()
     
-//    init() {
-//        super.init(frame: .zero)
-//        setupSubviews()
-//        layoutSubviews()
-//        getLocation()
-//    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupSubviews()
@@ -86,7 +79,6 @@ class NavigationBarView: UIStackView {
         
         let latitude = 43.126561
         let longitude = 131.924325
-        
         
         // Create a CLLocation object with the coordinates
         let location = CLLocation(latitude: latitude, longitude: longitude)
@@ -108,10 +100,8 @@ class NavigationBarView: UIStackView {
             }
         }
     }
-        
+    
     private func setupSubviews() {
-        backgroundColor = .green
-        
         translatesAutoresizingMaskIntoConstraints = false
         axis = .horizontal
         alignment = .top
@@ -122,12 +112,11 @@ class NavigationBarView: UIStackView {
         addArrangedSubview(labelsVStackView)
         addArrangedSubview(profileButton)
     }
-//
-     private func setupConstraints() {
+    //
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             
             widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width),
-//            heightAnchor.constraint(equalToConstant: 100),
             
             locationImage.widthAnchor.constraint(equalToConstant: 24),
             locationImage.heightAnchor.constraint(equalToConstant: 24),

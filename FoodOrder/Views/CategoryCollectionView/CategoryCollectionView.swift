@@ -17,29 +17,28 @@ class CategoryCollectionView: UIView {
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.minimumLineSpacing = 8
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(CategoryCollectionViewCell.self, forCellWithReuseIdentifier: CategoryCollectionViewCell.identifier)
+        view.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         view.delegate = self
         view.dataSource = self
         view.translatesAutoresizingMaskIntoConstraints = false
         view.showsVerticalScrollIndicator = false
-        view.backgroundColor = .yellow
+        view.backgroundColor = .systemBackground
         return view
     }()
     
     public var delegate: CategoryCollectionViewProtocol?
     
-//    public var dataSource: [CategoryCardViewModel] = [] {
-//        didSet {
-//            categoryCollectionView.reloadData()
-//        }
-//    }
+    //    public var dataSource: [CategoryCardViewModel] = [] {
+    //        didSet {
+    //            categoryCollectionView.reloadData()
+    //        }
+    //    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        backgroundColor = .systemBackground
         setupSubviews()
         setupConstraints()
     }
@@ -50,6 +49,7 @@ class CategoryCollectionView: UIView {
     
     func setupSubviews() {
         addSubview(categoryCollectionView)
+        backgroundColor = .systemBackground
     }
     
     func setupConstraints() {
@@ -63,27 +63,27 @@ class CategoryCollectionView: UIView {
 }
 
 extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
-
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 6
-//        return dataSource.count
+        //        return dataSource.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as!
         CategoryCollectionViewCell
-//        cell.setup(model: dataSource[indexPath.row])
+        //        cell.setup(model: dataSource[indexPath.row])
         return cell
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         let width = collectionView.bounds.width
-//        let height = dataSource[indexPath.row].productCardSize.height + 55
-//        return CGSize(width: width, height: height)
+        //        let height = dataSource[indexPath.row].productCardSize.height + 55
+        //        return CGSize(width: width, height: height)
         return CGSize(width: width, height: 148)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.selectItem(indexPath.row)
     }
