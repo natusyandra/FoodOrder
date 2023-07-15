@@ -18,7 +18,7 @@ class TabBarViewController: UITabBarController {
     
     func settingsForViewControllers() {
         viewControllers = [
-            createNavController(for: MainViewController(), title: "Главная", image: UIImage(named: "mains") ?? .init()),
+            createNavController(for: CategoryViewController(), title: "Главная", image: UIImage(named: "mains") ?? .init()),
             createNavController(for: ViewController(), title: "Поиск", image: UIImage(named: "searchs") ?? .init()),
             createNavController(for: CartViewController(), title: "Корзина", image: UIImage(named: "bag") ?? .init()),
             createNavController(for: ViewController(), title: "Аккаунт", image: UIImage(systemName: "person.circle") ?? .init())

@@ -21,7 +21,7 @@ class CartCollectionViewCell: UICollectionViewCell {
         return image
     }()
     
-    private var minusLabel: UIButton = {
+    private var minusButton: UIButton = {
         let button = UIButton()
         button.tintColor = .gray
         button.setImage(UIImage(systemName: "minus"), for: .normal)
@@ -33,7 +33,8 @@ class CartCollectionViewCell: UICollectionViewCell {
     
     private var countLabel: UILabel = {
         let label = UILabel()
-        label.text = "1"
+        let count = 0
+        label.text = "\(count)"
         label.textAlignment = .center
         //text как в figme
         label.font = UIFont.init(name: "SF Pro Display", size: 14)
@@ -41,7 +42,7 @@ class CartCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private var plusLabel: UIButton = {
+    private var plusButton: UIButton = {
         let button = UIButton()
         button.tintColor = .gray
         button.setImage(UIImage(systemName: "plus"), for: .normal)
@@ -50,16 +51,6 @@ class CartCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-//    lazy var priceLabelsHStackView: UIStackView = {
-//        let stack = UIStackView(arrangedSubviews: [priceLabel, weightLabel])
-//        stack.translatesAutoresizingMaskIntoConstraints = false
-//        stack.axis = .horizontal
-//        stack.alignment = .center
-//        stack.distribution = .fillProportionally
-//        stack.spacing = 0
-//        return stack
-//    }()
-    
     lazy var parametersLabelsVStackView: ProductDetailStack = {
         let stack = ProductDetailStack()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -67,7 +58,7 @@ class CartCollectionViewCell: UICollectionViewCell {
     }()
     
     lazy var buttonsHStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [minusLabel, countLabel, plusLabel])
+        let stack = UIStackView(arrangedSubviews: [minusButton, countLabel, plusButton])
         stack.layer.cornerRadius = 10
         stack.backgroundColor = Pallete.backgroundColorButton
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -78,23 +69,44 @@ class CartCollectionViewCell: UICollectionViewCell {
         return stack
     }()
     
+    var productCount = 0
+    
     override init(frame: CGRect) {
         super .init(frame: frame)
         contentView.backgroundColor = .systemBackground
         setupSubviews()
         setupConstraints()
-        
+        minusButton.addTarget(self, action: #selector(minusButtonPressed), for: .touchUpInside)
+        plusButton.addTarget(self, action: #selector(plusButtonPressed), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func minusButtonPressed() {
+        if productCount > 0 {
+            productCount -= 1
+            updateLabel()
+        }
+    }
+    
+    @objc func plusButtonPressed() {
+        if productCount < 10 {
+            productCount += 1
+            updateLabel()
+        }
+    }
+    
+    func updateLabel() {
+        countLabel.text = "\(productCount)"
+    }
+        
     private func setupSubviews() {
         contentView.addSubview(productImage)
-        contentView.addSubview(minusLabel)
+        contentView.addSubview(minusButton)
         contentView.addSubview(countLabel)
-        contentView.addSubview(plusLabel)
+        contentView.addSubview(plusButton)
         contentView.addSubview(parametersLabelsVStackView)
         contentView.addSubview(buttonsHStackView)
     }

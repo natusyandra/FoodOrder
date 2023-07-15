@@ -21,8 +21,9 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     public var categoryLabel: UILabel = {
         let label = UILabel()
         label.text = "KAtegor"
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .systemFont(ofSize: 20, weight: .regular)
         return label
     }()
     
@@ -59,11 +60,22 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    //    public func setup(model: CategoryCardViewModel) {
-    //        let viewModel = CardCollectionViewModel(cellSize: model.productCardSize, products: model.products)
-    //        categoryLabel.text = model.title
-    ////        cardCollectionView.dataSource = model.products
-    //        cardCollectionView.setup(viewModel: viewModel)
-    //    }
+    public func setup(category: CategoryModel.Category) {
+        downloadImage(urlString: category.imageUrl)
+        categoryLabel.text = category.name
+    }
+    
+    private func downloadImage(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async {
+                self.categoryImage.image = UIImage(data: data)
+            }
+        }
+        
+        task.resume()
+    }
 }
 

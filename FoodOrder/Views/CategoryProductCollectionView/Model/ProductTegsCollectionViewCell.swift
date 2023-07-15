@@ -43,8 +43,6 @@ class ProductTegsCollectionViewCell: UICollectionViewCell {
             
             categoryLabel.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             categoryLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            //            categoryLabel.heightAnchor.constraint(equalToConstant: 50),
-            //            categoryLabel.widthAnchor.constraint(equalToConstant: 191),
             categoryLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             categoryLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
         ])
@@ -63,10 +61,7 @@ class ProductTegsCollectionViewCell: UICollectionViewCell {
     }
     
     func setup(viewModel: ProductsModel.ProductTag) {
-        dataSource = viewModel.categories
-        categoryCollectionView.reloadData()
+        categoryLabel.text = viewModel.value
     }
-    
-    
 }
 

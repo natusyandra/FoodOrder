@@ -36,7 +36,7 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
         return view
     }()
     
-    var dataSource: [CategoryModel.CategoryModel] = []
+    var dataSource: [CategoryModel.Category] = []
     
     //    private lazy var categoryCollectionView: CategoryCollectionView = {
     //        let category = CategoryCollectionView()

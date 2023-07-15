@@ -9,15 +9,15 @@ import Foundation
 import UIKit
 
 protocol ProductCollectionViewProtocol: AnyObject {
-    func selectItem(_ index: Int)
+    func selectProduct(_ index: Int)
+//    func setup(viewModel: CategoryViewModel)
 }
 
 class ProductCollectionView: UIView {
     
-    private lazy var productCollectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        //        layout.minimumLineSpacing = 8
         layout.minimumInteritemSpacing = 8
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.register(ProductCollectionViewCell.self, forCellWithReuseIdentifier: ProductCollectionViewCell.identifier)
@@ -32,11 +32,11 @@ class ProductCollectionView: UIView {
     
     public var delegate: ProductCollectionViewProtocol?
     
-    //    public var dataSource: [CategoryCardViewModel] = [] {
-    //        didSet {
-    //            categoryCollectionView.reloadData()
-    //        }
-    //    }
+    public var dataSource: [ProductsModel.Product] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -50,30 +50,33 @@ class ProductCollectionView: UIView {
     }
     
     func setupSubviews() {
-        addSubview(productCollectionView)
+        addSubview(collectionView)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            productCollectionView.topAnchor.constraint(equalTo: topAnchor),
-            productCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
-            productCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
-            productCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: topAnchor),
+            collectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0),
+            collectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0),
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
+    
+//    func setup(viewModel: CategoryViewModel) {
+//        dataSource = viewModel.product
+//    }
 }
 
 extension ProductCollectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
-        //        return dataSource.count
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.identifier, for: indexPath) as!
         ProductCollectionViewCell
-        //        cell.setup(model: dataSource[indexPath.row])
+        cell.setup(products: dataSource[indexPath.row])
         return cell
     }
     
@@ -85,7 +88,7 @@ extension ProductCollectionView: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.selectItem(indexPath.row)
+        delegate?.selectProduct(indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-protocol ProductTegsCollectionViewProtocol: AnyObject {
-    func selectItem(_ index: Int)
+protocol ProductTagsCollectionViewProtocol: AnyObject {
+    func selectTag(_ index: Int)
 }
 
 class ProductTagsCollectionView: UIView {
@@ -29,11 +29,14 @@ class ProductTagsCollectionView: UIView {
         return view
     }()
     
-    public var delegate: ProductTegsCollectionViewProtocol?
+    public var delegate: ProductTagsCollectionViewProtocol?
     
     public var dataSource: [ProductsModel.ProductTag] = [] {
             didSet {
                 collectionView.reloadData()
+                if dataSource.count > 0 {
+                    collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .left)
+                }
             }
         }
     
@@ -50,7 +53,6 @@ class ProductTagsCollectionView: UIView {
     
     func setupSubviews() {
         addSubview(collectionView)
-//        collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .left)
     }
     
     func setupConstraints() {
@@ -78,13 +80,14 @@ extension ProductTagsCollectionView: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
-//        let width = dataSource[indexPath.row]
-        let width = (collectionView.bounds.width - 56)/3.2
+        let tag = dataSource[indexPath.row]
+        
+        let width = tag.value.count * 9 + 32
         return CGSize(width: width, height: 35)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.selectItem(indexPath.row)
+        delegate?.selectTag(indexPath.row)
     }
 }
 
