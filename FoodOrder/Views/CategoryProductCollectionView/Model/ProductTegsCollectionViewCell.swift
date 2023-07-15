@@ -8,18 +8,19 @@
 import Foundation
 import UIKit
 
-class CategoryProductCollectionViewCell: UICollectionViewCell {
+class ProductTegsCollectionViewCell: UICollectionViewCell {
     static let identifier = "CategoryProductCollectionViewCell"
     
     public var categoryLabel: UILabel = {
         let label = UILabel()
-        label.text = "C рыбой"
+        label.text = "Сgggggggggggggggggалаты"
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14, weight: .regular)
-        //        label.layer.cornerRadius = 10
         return label
     }()
+    
+    var dataSource: [ProductsModel.ProductTag] = []
     
     override init(frame: CGRect) {
         super .init(frame: frame)
@@ -61,11 +62,11 @@ class CategoryProductCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    //    public func setup(model: CategoryCardViewModel) {
-    //        let viewModel = CardCollectionViewModel(cellSize: model.productCardSize, products: model.products)
-    //        categoryLabel.text = model.title
-    ////        cardCollectionView.dataSource = model.products
-    //        cardCollectionView.setup(viewModel: viewModel)
-    //    }
+    func setup(viewModel: ProductsModel.ProductTag) {
+        dataSource = viewModel.categories
+        categoryCollectionView.reloadData()
+    }
+    
+    
 }
 
