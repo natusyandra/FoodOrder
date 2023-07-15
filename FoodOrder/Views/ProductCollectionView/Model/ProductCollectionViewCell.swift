@@ -13,7 +13,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
     
     private var productImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "eda")
+        image.image = UIImage(named: "dishes")
         image.backgroundColor = Pallete.backgroundColorImage
         image.clipsToBounds = true
         image.contentMode = .scaleAspectFit
@@ -23,7 +23,6 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }()
     public var productLabel: UILabel = {
         let label = UILabel()
-        label.text = "Блаблfffffffffffffffffffffff"
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 14, weight: .regular)
@@ -48,6 +47,10 @@ class ProductCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(productLabel)
     }
     
+    override func prepareForReuse() {
+        productImage.image = UIImage(named: "dishes")
+    }
+    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             
@@ -62,11 +65,23 @@ class ProductCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    //    public func setup(model: CategoryCardViewModel) {
-    //        let viewModel = CardCollectionViewModel(cellSize: model.productCardSize, products: model.products)
-    //        categoryLabel.text = model.title
-    ////        cardCollectionView.dataSource = model.products
-    //        cardCollectionView.setup(viewModel: viewModel)
-    //    }
+    
+    public func setup(products: ProductsModel.Product) {
+        downloadImage(urlString: products.image)
+        productLabel.text = products.name
+    }
+    
+    private func downloadImage(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async {
+                self.productImage.image = UIImage(data: data)
+            }
+        }
+        
+        task.resume()
+    }
 }
 

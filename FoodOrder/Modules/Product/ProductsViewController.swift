@@ -8,13 +8,10 @@
 import UIKit
 
 protocol ProductsViewProtocol: AnyObject {
-    func setup(viewModel: CategoryViewModel)
+    func setup(viewModel: ProductsViewModel)
 }
 
 class ProductsViewController: UIViewController, ProductsViewProtocol {
-  
-    var presenter: ProductsPresenterProtocol!
-    let configurator: ProductsConfiguratorProtocol = ProductsConfigurator()
     
     let profileButton: UIButton = {
         let button = UIButton()
@@ -28,9 +25,9 @@ class ProductsViewController: UIViewController, ProductsViewProtocol {
         return button
     }()
     
-    private lazy var categoryCollectionView: ProductTegsCollectionView = {
-        let category = ProductTegsCollectionView()
-//        category.delegate = self
+    private lazy var productTagsCollectionView: ProductTagsCollectionView = {
+        let category = ProductTagsCollectionView()
+        category.delegate = self
         category.translatesAutoresizingMaskIntoConstraints = false
         return category
     }()
@@ -42,8 +39,13 @@ class ProductsViewController: UIViewController, ProductsViewProtocol {
         return category
     }()
     
-    public var category: CategoryModel.CategoryModel?
-    var dataSource: [CategoryModel.ProductModel] = []
+    var presenter: ProductsPresenterProtocol!
+    let configurator: ProductsConfiguratorProtocol = ProductsConfigurator()
+    
+    public var category: CategoryModel.Category?
+    
+    private var viewModel: ProductsViewModel?
+    
     
     // MARK: - Lifecycle methods
     
@@ -55,34 +57,35 @@ class ProductsViewController: UIViewController, ProductsViewProtocol {
         setupSubviews()
         setupConstraints()
         addSettingsNavigation()
+        
+        presenter.getProducts()
     }
     
     func setupSubviews() {
-        view.addSubview(categoryCollectionView)
+        view.addSubview(productTagsCollectionView)
         view.addSubview(productCollectionView)
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
             
-            categoryCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
-            categoryCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
-            //            categoryCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            categoryCollectionView.widthAnchor.constraint(equalToConstant: 10),
-            categoryCollectionView.heightAnchor.constraint(equalToConstant: 35),
-            categoryCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
+            productTagsCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            productTagsCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0),
+            productTagsCollectionView.widthAnchor.constraint(equalToConstant: 10),
+            productTagsCollectionView.heightAnchor.constraint(equalToConstant: 35),
+            productTagsCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0),
             
             productCollectionView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 16),
             productCollectionView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16),
-            productCollectionView.topAnchor.constraint(equalTo: categoryCollectionView.bottomAnchor, constant: 0),
+            productCollectionView.topAnchor.constraint(equalTo: productTagsCollectionView.bottomAnchor, constant: 0),
             productCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0)
         ])
     }
     
-    func setup(viewModel: CategoryViewModel) {
-        dataSource = viewModel.product
-        categoryCollectionView.reloadInputViews()
-        productCollectionView.reloadInputViews()
+    func setup(viewModel: ProductsViewModel) {
+        productTagsCollectionView.dataSource = viewModel.tags
+        productCollectionView.dataSource = viewModel.product
+        self.viewModel = viewModel
     }
     
     func addSettingsNavigation() {
@@ -97,10 +100,21 @@ class ProductsViewController: UIViewController, ProductsViewProtocol {
 }
 
 extension ProductsViewController: ProductCollectionViewProtocol {
-    func selectItem(_ index: Int) {
+    func selectProduct(_ index: Int) {
         let vc = ProductViewController()
         vc.modalPresentationStyle = .overFullScreen
         navigationController?.present(vc, animated: true)
+    }
+}
+
+extension ProductsViewController: ProductTagsCollectionViewProtocol {
+    func selectTag(_ index: Int) {
+        guard let viewModel = self.viewModel else {return}
+        let tag = viewModel.tags[index]
+        let filterProduct = viewModel.product.filter { item in
+            return item.tags.contains(tag.value)
+        }
+        productCollectionView.dataSource = filterProduct
     }
 }
 

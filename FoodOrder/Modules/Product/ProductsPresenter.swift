@@ -9,8 +9,8 @@ import Foundation
 
 protocol ProductsPresenterProtocol: AnyObject {
     var router: ProductsRouterProtocol! { set get }
-    func response(model: CategoryModel)
-    func getCategories()
+    func response(model: ProductsModel)
+    func getProducts()
 }
 
 class ProductsPresenter: ProductsPresenterProtocol {
@@ -19,22 +19,19 @@ class ProductsPresenter: ProductsPresenterProtocol {
     var interactor: ProductsInteractorProtocol!
     var router: ProductsRouterProtocol!
     
-    private var model: CategoryModel?
+    private var model: ProductsModel?
     
     required init(view: ProductsViewProtocol) {
         self.view = view
     }
     
-    func response(model: CategoryModel) {
+    func response(model: ProductsModel) {
         self.model = model
-        let viewModel = CategoryViewModel(
-            categories: CategoryViewModel.CategoryProduct(name: "", teg: ""),
-            product: model.products
-        )
+        let viewModel = ProductsViewModel(tags: model.tags, product: model.products)
         view.setup(viewModel: viewModel)
     }
     
-    func getCategories() {
+    func getProducts() {
         interactor.getProducts()
     }
 }

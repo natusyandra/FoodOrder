@@ -34,7 +34,7 @@ extension ProductsInteractor: ProductsInteractorProtocol {
             do {
                 guard let data = data else { return }
                 let responseModel = try JSONDecoder().decode(ProductResponseModel.self, from: data)
-                let model = CategoryUseCases().map(model: responseModel)
+                let model = ProductUseCases().map(model: responseModel)
                 DispatchQueue.main.async {
                     self?.presenter.response(model: model)
                 }

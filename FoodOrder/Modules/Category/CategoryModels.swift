@@ -13,16 +13,16 @@ struct CategoryViewModel {
         let date: String
     }
     let location: LocationData
-    let categories: [CategoryModel.CategoryModel]
+    let categories: [CategoryModel.Category]
 }
 
 struct CategoryModel {
-    struct CategoryModel {
+    struct Category {
         let id: Int
         let name: String
         let imageUrl: String
     }
-    let categories: [CategoryModel.CategoryModel]
+    let categories: [CategoryModel.Category]
 }
 
 struct CategoryResponseModel: Decodable {
@@ -44,8 +44,8 @@ struct CategoryResponseModel: Decodable {
 
 class MainUseCases {
     func map(model: CategoryResponseModel) -> CategoryModel {
-        let categories: [CategoryModel.CategoryModel] = model.сategories.compactMap { item in
-            return CategoryModel.CategoryModel(id: item.id, name: item.name, imageUrl: item.imageUrl)
+        let categories: [CategoryModel.Category] = model.сategories.compactMap { item in
+            return CategoryModel.Category(id: item.id, name: item.name, imageUrl: item.imageUrl)
         }
         return CategoryModel(categories: categories)
     }
