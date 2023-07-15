@@ -1,8 +1,8 @@
 //
-//  CategoryPresenter.swift
+//  File.swift
 //  FoodOrder
 //
-//  Created by Nataliya Mikhailova on 12.07.2023.
+//  Created by Nataliya Mikhailova on 11.07.2023.
 //
 
 import Foundation
@@ -10,7 +10,8 @@ import Foundation
 protocol CategoryPresenterProtocol: AnyObject {
     var router: CategoryRouterProtocol! { set get }
     
-    func loadData()
+    func response(model: CategoryModel)
+    func getCategories()
     
 }
 
@@ -20,11 +21,22 @@ class CategoryPresenter: CategoryPresenterProtocol {
     var interactor: CategoryInteractorProtocol!
     var router: CategoryRouterProtocol!
     
+    private var model: CategoryModel?
+    
     required init(view: CategoryViewProtocol) {
         self.view = view
     }
     
-    func loadData() {
-        
+    func response(model: CategoryModel) {
+        self.model = model
+        let viewModel = CategoryViewModel(
+            location: CategoryViewModel.LocationData(cityName: "", date: ""),
+            categories: model.categories
+        )
+        view.setup(viewModel: viewModel)
+    }
+    
+    func getCategories() {
+        interactor.getCategories()
     }
 }
