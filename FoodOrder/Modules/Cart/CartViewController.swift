@@ -8,10 +8,11 @@
 import UIKit
 
 protocol CartViewProtocol: AnyObject {
-    
+    func setup(viewModel: CartViewModel)
+    func selectItem(at index: Int)
 }
 
-class CartViewController: UIViewController, CartViewProtocol {
+class CartViewController: UIViewController, CartCollectionViewProtocol {
     
     var presenter: CartPresenterProtocol!
     let configurator: CartConfiguratorProtocol = CartConfigurator()
@@ -21,9 +22,9 @@ class CartViewController: UIViewController, CartViewProtocol {
         return bar
     }()
     
-    private lazy var cartCollectionView: CartCollectionView = {
+    lazy var cartCollectionView: CartCollectionView = {
         let cart = CartCollectionView()
-        //        cart.delegate = self
+        cart.delegate = self
         cart.translatesAutoresizingMaskIntoConstraints = false
         return cart
     }()
@@ -38,6 +39,8 @@ class CartViewController: UIViewController, CartViewProtocol {
         return button
     }()
     
+    private var viewModel: CartViewModel?
+    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {
@@ -49,6 +52,12 @@ class CartViewController: UIViewController, CartViewProtocol {
         setupSubviews()
         setupConstraints()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter.getCardItems()
+    }
+    
     
     func setupSubviews() {
         navigationItem.titleView = navigationBar
@@ -72,5 +81,15 @@ class CartViewController: UIViewController, CartViewProtocol {
             payButton.heightAnchor.constraint(equalToConstant: 48)
         ])
     }
+    
+    func setup(viewModel: CartViewModel) {
+        cartCollectionView.dataSource = viewModel.items
+        self.viewModel = viewModel
+    }
 }
 
+extension CartViewController: CartViewProtocol {
+    func selectItem(at index: Int) {
+        presenter.selectItem(at: index)
+    }
+}

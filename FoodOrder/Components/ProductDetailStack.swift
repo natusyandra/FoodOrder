@@ -8,16 +8,9 @@
 import Foundation
 import UIKit
 
-struct ProductDetaiViewModel {
-    let name: String
-    let price: String
-    let weight: String
-    let description: String?
-}
-
 class ProductDetailStack: UIStackView {
     
-    public var nameLabel: UILabel = {
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.text = "Имя"
         label.textAlignment = .left
@@ -28,21 +21,22 @@ class ProductDetailStack: UIStackView {
         return label
     }()
     
-    private var priceLabel: UILabel = {
+    lazy var priceLabel: UILabel = {
         let label = UILabel()
         label.text = "303 р "
         //text как в figme
         label.font = UIFont.init(name: "SF Pro Display", size: 14)
+        label.textColor = Pallete.productPrice
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var weightLabel: UILabel = {
+    lazy var weightLabel: UILabel = {
         let label = UILabel()
         label.text = "· 303 г"
         //text как в figme
         label.font = UIFont.init(name: "SF Pro Display", size: 14)
-        label.textColor = .gray
+        label.textColor = Pallete.productWeight
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -57,13 +51,14 @@ class ProductDetailStack: UIStackView {
         return stack
     }()
     
-    private var descriptionLabel: UILabel = {
+    lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Описание"
         //text как в figme
         label.textAlignment = .left
         label.numberOfLines = 0
         label.font = UIFont.init(name: "SF Pro Display", size: 14)
+        label.textColor = Pallete.productDescriotion
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -88,14 +83,11 @@ class ProductDetailStack: UIStackView {
         addArrangedSubview(descriptionLabel)
     }
     
-    public func setup(model: ProductDetaiViewModel) {
-        nameLabel.text = model.name
-        priceLabel.text = model.price
-        weightLabel.text = model.weight
-        descriptionLabel.text = model.description
-        
-        if model.description == nil {
-            descriptionLabel.isHidden = true
-        }
+    public func setup(viewModel: ProductsViewModel.Product) {
+        nameLabel.text = viewModel.name
+        priceLabel.text = viewModel.price
+        weightLabel.text = viewModel.weight
+        descriptionLabel.text = viewModel.description
+        descriptionLabel.isHidden = viewModel.description == nil
     }
 }

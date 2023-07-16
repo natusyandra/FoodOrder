@@ -52,7 +52,7 @@ class ProductTegsCollectionViewCell: UICollectionViewCell {
         didSet {
             if isSelected {
                 categoryLabel.textColor = .white
-                contentView.backgroundColor = .blue
+                contentView.backgroundColor = Pallete.blueColor
             } else {
                 categoryLabel.textColor = .black
                 contentView.backgroundColor = Pallete.backgroundColorImage

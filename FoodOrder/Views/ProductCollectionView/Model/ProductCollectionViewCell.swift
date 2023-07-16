@@ -66,8 +66,8 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     
-    public func setup(products: ProductsModel.Product) {
-        downloadImage(urlString: products.image)
+    public func setup(products: ProductsViewModel.Product) {
+        downloadImage(urlString: products.imageUrl)
         productLabel.text = products.name
     }
     

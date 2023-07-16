@@ -9,6 +9,7 @@ import UIKit
 
 protocol ProductsViewProtocol: AnyObject {
     func setup(viewModel: ProductsViewModel)
+    func setup(products: [ProductsViewModel.Product])
 }
 
 class ProductsViewController: UIViewController, ProductsViewProtocol {
@@ -82,12 +83,6 @@ class ProductsViewController: UIViewController, ProductsViewProtocol {
         ])
     }
     
-    func setup(viewModel: ProductsViewModel) {
-        productTagsCollectionView.dataSource = viewModel.tags
-        productCollectionView.dataSource = viewModel.product
-        self.viewModel = viewModel
-    }
-    
     func addSettingsNavigation() {
         let menuBarItem = UIBarButtonItem(customView: profileButton)
         menuBarItem.customView?.translatesAutoresizingMaskIntoConstraints = false
@@ -97,24 +92,27 @@ class ProductsViewController: UIViewController, ProductsViewProtocol {
         navigationItem.rightBarButtonItem = menuBarItem
         navigationItem.title = category?.name
     }
+    
+    func setup(viewModel: ProductsViewModel) {
+        productTagsCollectionView.dataSource = viewModel.tags
+        productCollectionView.dataSource = viewModel.products
+        self.viewModel = viewModel
+    }
+    
+    func setup(products: [ProductsViewModel.Product]) {
+        productCollectionView.dataSource = products
+    }
 }
 
 extension ProductsViewController: ProductCollectionViewProtocol {
     func selectProduct(_ index: Int) {
-        let vc = ProductViewController()
-        vc.modalPresentationStyle = .overFullScreen
-        navigationController?.present(vc, animated: true)
+        presenter.openProductDetails(at: index)
     }
 }
 
 extension ProductsViewController: ProductTagsCollectionViewProtocol {
     func selectTag(_ index: Int) {
-        guard let viewModel = self.viewModel else {return}
-        let tag = viewModel.tags[index]
-        let filterProduct = viewModel.product.filter { item in
-            return item.tags.contains(tag.value)
-        }
-        productCollectionView.dataSource = filterProduct
+        presenter.selectTag(at: index)
     }
 }
 

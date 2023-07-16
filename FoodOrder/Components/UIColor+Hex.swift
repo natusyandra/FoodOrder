@@ -12,10 +12,13 @@ class Pallete {
     static var blueColor: UIColor = UIColor.hex("#3364E0")
     static var backgroundColorImage: UIColor = UIColor.hex("#F8F7F5")
     static var backgroundColorButton: UIColor = UIColor.hex("#EFEEEC")
+    static var productDescriotion: UIColor = UIColor.hex("#000000", alpha: 0.65)
+    static var productWeight: UIColor = UIColor.hex("#000000", alpha: 0.4)
+    static var productPrice: UIColor = UIColor.hex("#000000")
 }
 
 extension UIColor {
-    static func hex(_ hex:String) -> UIColor {
+    static func hex(_ hex:String, alpha: CGFloat = 1.0) -> UIColor {
         var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
         
         if (cString.hasPrefix("#")) {
@@ -33,7 +36,7 @@ extension UIColor {
             red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
             green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
             blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
+            alpha: alpha
         )
     }
 }
