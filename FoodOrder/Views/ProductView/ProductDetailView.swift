@@ -10,9 +10,9 @@ import UIKit
 
 class ProductDetailView: UIView {
     
-    private var productImage: UIImageView = {
+    lazy var productImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "eda")
+        image.image = UIImage(named: "dishes")
         image.backgroundColor = Pallete.backgroundColorImage
         image.contentMode = .scaleAspectFit
         image.layer.cornerRadius = 10
@@ -44,10 +44,11 @@ class ProductDetailView: UIView {
     lazy var parametersLabelsVStackView: ProductDetailStack = {
         let stack = ProductDetailStack()
         stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         return stack
     }()
     
-    private var addToCartButton: UIButton = {
+    lazy var addToCartButton: UIButton = {
         let button = UIButton()
         button.setTitle("Добавить в корзину", for: .normal)
         button.tintColor = .white

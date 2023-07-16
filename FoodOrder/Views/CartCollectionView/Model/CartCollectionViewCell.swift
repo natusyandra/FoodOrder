@@ -13,7 +13,7 @@ class CartCollectionViewCell: UICollectionViewCell {
     
     private var productImage: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "eda")
+        image.image = UIImage(named: "dishes")
         image.backgroundColor = Pallete.backgroundColorImage
         image.contentMode = .scaleAspectFit
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -70,6 +70,7 @@ class CartCollectionViewCell: UICollectionViewCell {
     }()
     
     var productCount = 0
+    public var index: Int = 0
     
     override init(frame: CGRect) {
         super .init(frame: frame)
@@ -78,10 +79,15 @@ class CartCollectionViewCell: UICollectionViewCell {
         setupConstraints()
         minusButton.addTarget(self, action: #selector(minusButtonPressed), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(plusButtonPressed), for: .touchUpInside)
+        
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        productImage.image = UIImage(named: "dishes")
     }
     
     @objc func minusButtonPressed() {
@@ -128,6 +134,27 @@ class CartCollectionViewCell: UICollectionViewCell {
             buttonsHStackView.heightAnchor.constraint(equalToConstant: 32),
             buttonsHStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0)
         ])
+    }
+    
+    public func setup(item: CartItemViewModel) {
+        downloadImage(urlString: item.product.imageUrl)
+        parametersLabelsVStackView.setup(viewModel: item.product)
+//        parametersLabelsVStackView.nameLabel.text = items.product.name
+//        parametersLabelsVStackView.weightLabel.text = items.product.weight
+//        parametersLabelsVStackView.priceLabel.text = items.product.price
+    }
+    
+    private func downloadImage(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+            guard let data = data, error == nil else { return }
+            
+            DispatchQueue.main.async {
+                self.productImage.image = UIImage(data: data)
+            }
+        }
+        
+        task.resume()
     }
     
     //    public func setup(model: CategoryCardViewModel) {

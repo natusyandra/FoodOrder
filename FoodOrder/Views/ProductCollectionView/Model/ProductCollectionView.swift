@@ -32,7 +32,7 @@ class ProductCollectionView: UIView {
     
     public var delegate: ProductCollectionViewProtocol?
     
-    public var dataSource: [ProductsModel.Product] = [] {
+    public var dataSource: [ProductsViewModel.Product] = [] {
         didSet {
             collectionView.reloadData()
         }

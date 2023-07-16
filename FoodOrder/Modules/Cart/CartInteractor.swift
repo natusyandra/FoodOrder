@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CartInteractorProtocol: AnyObject {
-    
+    func getCardItems()
 }
 
 class CartInteractor {
@@ -18,3 +18,15 @@ class CartInteractor {
         self.presenter = presenter
     }
 }
+
+extension CartInteractor: CartInteractorProtocol {
+    
+    func getCardItems() {
+            
+        let items = CartStoreService.shared.items
+ 
+        let model = CartModel(items: items)
+        presenter.response(model: model)
+    }
+}
+

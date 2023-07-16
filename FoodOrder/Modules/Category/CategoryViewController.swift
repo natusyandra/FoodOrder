@@ -38,13 +38,6 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
     
     var dataSource: [CategoryModel.Category] = []
     
-    //    private lazy var categoryCollectionView: CategoryCollectionView = {
-    //        let category = CategoryCollectionView()
-    //        category.delegate = self
-    //        category.translatesAutoresizingMaskIntoConstraints = false
-    //        return category
-    //    }()
-    
     // MARK: - Lifecycle methods
     
     override func viewDidLoad() {

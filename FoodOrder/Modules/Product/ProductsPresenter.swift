@@ -11,6 +11,8 @@ protocol ProductsPresenterProtocol: AnyObject {
     var router: ProductsRouterProtocol! { set get }
     func response(model: ProductsModel)
     func getProducts()
+    func openProductDetails(at index: Int)
+    func selectTag(at index: Int)
 }
 
 class ProductsPresenter: ProductsPresenterProtocol {
@@ -20,6 +22,7 @@ class ProductsPresenter: ProductsPresenterProtocol {
     var router: ProductsRouterProtocol!
     
     private var model: ProductsModel?
+    private var filterProducts: [ProductsModel.Product] = []
     
     required init(view: ProductsViewProtocol) {
         self.view = view
@@ -27,11 +30,28 @@ class ProductsPresenter: ProductsPresenterProtocol {
     
     func response(model: ProductsModel) {
         self.model = model
-        let viewModel = ProductsViewModel(tags: model.tags, product: model.products)
+        filterProducts = model.products
+        let viewModel: ProductsViewModel = ProductUseCases().map(model: model)
         view.setup(viewModel: viewModel)
     }
     
     func getProducts() {
         interactor.getProducts()
+    }
+    
+    func openProductDetails(at index: Int) {
+        let product = filterProducts[index]
+        router.openProductDetail(with: product)
+    }
+    
+    func selectTag(at index: Int) {
+        guard let model = model else { return }
+        let tag = model.tags[index]
+        let filterProducts = model.products.filter { item in
+            return item.tags.contains(tag.value)
+        }
+        self.filterProducts = filterProducts
+        let filtredViewModelProducts = ProductUseCases().map(products: filterProducts)
+        view.setup(products: filtredViewModelProducts)
     }
 }
