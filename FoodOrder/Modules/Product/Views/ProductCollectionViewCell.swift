@@ -25,7 +25,7 @@ class ProductCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         label.numberOfLines = 4
         return label
     }()

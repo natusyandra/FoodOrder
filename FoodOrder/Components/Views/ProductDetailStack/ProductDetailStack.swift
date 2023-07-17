@@ -12,20 +12,16 @@ class ProductDetailStack: UIStackView {
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Имя"
         label.textAlignment = .left
-        label.autoresizingMask = .flexibleHeight
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = UIFont.init(name: "SFProDisplay-Regular", size: 16)
         label.numberOfLines = 2
         return label
     }()
     
     lazy var priceLabel: UILabel = {
         let label = UILabel()
-        label.text = "303 р "
-        //text как в figme
-        label.font = UIFont.init(name: "SF Pro Display", size: 14)
+        label.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         label.textColor = Pallete.productPrice
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -33,9 +29,7 @@ class ProductDetailStack: UIStackView {
     
     lazy var weightLabel: UILabel = {
         let label = UILabel()
-        label.text = "· 303 г"
-        //text как в figme
-        label.font = UIFont.init(name: "SF Pro Display", size: 14)
+        label.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         label.textColor = Pallete.productWeight
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -53,11 +47,10 @@ class ProductDetailStack: UIStackView {
     
     lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Описание"
-        //text как в figme
         label.textAlignment = .left
         label.numberOfLines = 0
-        label.font = UIFont.init(name: "SF Pro Display", size: 14)
+        label.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
+        label.lineBreakMode = .byWordWrapping
         label.textColor = Pallete.productDescriotion
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

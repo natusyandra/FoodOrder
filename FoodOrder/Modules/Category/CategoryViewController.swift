@@ -44,15 +44,13 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configurator.configure(with: self)
-        navigationItem.titleView = navigationBar
-        navigationBar.layer.shadowColor = CGColor(gray: 0, alpha: 0)
-        navigationBar.layer.borderWidth = 0
-        navigationBar.layer.borderColor = CGColor(gray: 0, alpha: 0)
-        
         setupSubviews()
         setupConstraints()
-        
         presenter.getCategories()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.titleView = navigationBar
     }
     
     func setupSubviews() {
@@ -77,17 +75,7 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
 
 extension CategoryViewController: CategoryCollectionViewProtocol {
     func selectItem(_ index: Int) {
-        let category = dataSource[index]
-        let nv = ProductsViewController()
-        nv.category = category
-        navigationController?.pushViewController(nv, animated: true)
-        navigationItem.backBarButtonItem =
-        UIBarButtonItem( title: "",
-                         style: .plain,
-                         target: nil,
-                         action: nil)
-        navigationController?.view.tintColor = UIColor.black
-        
+        presenter.selectItem(index)
     }
 }
 

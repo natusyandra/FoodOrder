@@ -26,7 +26,7 @@ extension CategoryInteractor: CategoryInteractorProtocol {
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { [weak self] data, response, error in
             
             if let error = error {
-                //сделать обработку ощибки
+                // обработка ошибки
                 return
             }
             

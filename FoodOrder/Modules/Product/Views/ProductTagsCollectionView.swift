@@ -32,13 +32,13 @@ class ProductTagsCollectionView: UIView {
     public var delegate: ProductTagsCollectionViewProtocol?
     
     public var dataSource: [ProductsModel.ProductTag] = [] {
-            didSet {
-                collectionView.reloadData()
-                if dataSource.count > 0 {
-                    collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .left)
-                }
+        didSet {
+            collectionView.reloadData()
+            if dataSource.count > 0 {
+                collectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .left)
             }
         }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)

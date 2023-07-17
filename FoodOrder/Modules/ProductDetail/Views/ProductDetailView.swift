@@ -44,7 +44,7 @@ class ProductDetailView: UIView {
     lazy var parametersLabelsVStackView: ProductDetailStack = {
         let stack = ProductDetailStack()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.nameLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        stack.nameLabel.font = UIFont.init(name: "SFProDisplay-Medium", size: 16)
         return stack
     }()
     
@@ -102,7 +102,6 @@ class ProductDetailView: UIView {
             parametersLabelsVStackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             parametersLabelsVStackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             parametersLabelsVStackView.bottomAnchor.constraint(equalTo: addToCartButton.topAnchor, constant: -16),
-            
             addToCartButton.leftAnchor.constraint(equalTo: leftAnchor, constant: 16),
             addToCartButton.rightAnchor.constraint(equalTo: rightAnchor, constant: -16),
             addToCartButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),

@@ -20,10 +20,9 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     
     public var categoryLabel: UILabel = {
         let label = UILabel()
-        label.text = "KAtegor"
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 20, weight: .regular)
+        label.font = UIFont(name: "SFProDisplay-Medium", size: 20)
         return label
     }()
     

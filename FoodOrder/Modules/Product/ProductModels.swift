@@ -19,7 +19,7 @@ struct ProductsViewModel {
         var description: String?
         let tags: [String]
     }
-
+    
     let tags: [ProductsModel.ProductTag]
     let products: [ProductsViewModel.Product]
 }
@@ -96,7 +96,7 @@ class ProductUseCases {
     
     func map(model:ProductsModel) -> ProductsViewModel {
         let products = map(products: model.products)
-     
+        
         return ProductsViewModel(tags: model.tags, products: products)
     }
     

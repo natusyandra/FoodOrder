@@ -13,10 +13,9 @@ class ProductTegsCollectionViewCell: UICollectionViewCell {
     
     public var categoryLabel: UILabel = {
         let label = UILabel()
-        label.text = "Сgggggggggggggggggалаты"
         label.textAlignment = .center
+        label.font = UIFont(name: "SFProDisplay-Regular", size: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 14, weight: .regular)
         return label
     }()
     
@@ -36,6 +35,7 @@ class ProductTegsCollectionViewCell: UICollectionViewCell {
         contentView.clipsToBounds = true
         contentView.addSubview(categoryLabel)
         contentView.layer.cornerRadius = 10
+        contentView.backgroundColor = Pallete.backgroundColorImage
     }
     
     func setupConstraints() {

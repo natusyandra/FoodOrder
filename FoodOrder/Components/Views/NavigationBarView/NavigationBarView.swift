@@ -11,6 +11,8 @@ import CoreLocation
 
 class NavigationBarView: UIStackView {
     
+    let getLocation = GetLocation()
+    
     private lazy var locationImage: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "location")
@@ -20,23 +22,18 @@ class NavigationBarView: UIStackView {
     
     private lazy var locationLabel: UILabel = {
         let label = UILabel()
-        label.text = ""
-        //text как в figme
-        label.font = UIFont.init(name: "SF Pro Display", size: 18)
+        label.font = UIFont.init(name: "SFProDisplay-Medium", size: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        // вынести в презентер
         let dateFormatter = DateFormatter()
-        // июль с большой буквы?
         dateFormatter.dateFormat = "dd MMMM, yyyy"
         let formattedDate = dateFormatter.string(from: currentDate)
         label.text = formattedDate
-        //
-        label.font = UIFont.init(name: "SF Pro Display", size: 14)
+        label.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -67,38 +64,34 @@ class NavigationBarView: UIStackView {
         super.init(frame: frame)
         setupSubviews()
         setupConstraints()
-        getLocation()
+        
+        //в презентер
+        getLocation.run {
+            if let location = $0 {
+                let location = CLLocation(latitude: location.coordinate.latitude , longitude: location.coordinate.longitude)
+                let locale = Locale.init(identifier: "ru_RU")
+                CLGeocoder().reverseGeocodeLocation(location, preferredLocale: locale) { (placemarks, error) in
+                    if let error = error {
+                        print("Reverse geocoding failed: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    if let placemark = placemarks?.first {
+                        if let address = placemark.administrativeArea {
+                            DispatchQueue.main.async {
+                                self.locationLabel.text = address
+                            }
+                        }
+                    }
+                }
+            } else {
+                print("Get Location failed \(self.getLocation.didFailWithError)")
+            }
+        }
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    //вынести в презентер
-    func getLocation() {
-        
-        let latitude = 43.126561
-        let longitude = 131.924325
-        
-        // Create a CLLocation object with the coordinates
-        let location = CLLocation(latitude: latitude, longitude: longitude)
-        let locale = Locale.init(identifier: "ru_RU")
-        // Use the reverse geocoding to get the location address
-        CLGeocoder().reverseGeocodeLocation(location, preferredLocale: locale) { (placemarks, error) in
-            if let error = error {
-                print("Reverse geocoding failed: \(error.localizedDescription)")
-                return
-            }
-            
-            if let placemark = placemarks?.first {
-                // Get the formatted address from the placemark
-                if let address = placemark.subAdministrativeArea {
-                    DispatchQueue.main.async {
-                        self.locationLabel.text = address
-                    }
-                }
-            }
-        }
     }
     
     private func setupSubviews() {
@@ -112,7 +105,7 @@ class NavigationBarView: UIStackView {
         addArrangedSubview(labelsVStackView)
         addArrangedSubview(profileButton)
     }
-    //
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             
