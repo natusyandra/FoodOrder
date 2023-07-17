@@ -11,8 +11,8 @@ protocol CategoryPresenterProtocol: AnyObject {
     var router: CategoryRouterProtocol! { set get }
     
     func response(model: CategoryModel)
+    func selectItem(_ index: Int)
     func getCategories()
-    
 }
 
 class CategoryPresenter: CategoryPresenterProtocol {
@@ -34,6 +34,11 @@ class CategoryPresenter: CategoryPresenterProtocol {
             categories: model.categories
         )
         view.setup(viewModel: viewModel)
+    }
+    
+    func selectItem(_ index: Int) {
+        guard let model = model else { return }
+        router.openProducts(with: model.categories[index])
     }
     
     func getCategories() {

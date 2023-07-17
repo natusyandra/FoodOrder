@@ -31,11 +31,11 @@ class CategoryCollectionView: UIView {
     
     public var delegate: CategoryCollectionViewProtocol?
     
-    //    public var dataSource: [CategoryCardViewModel] = [] {
-    //        didSet {
-    //            categoryCollectionView.reloadData()
-    //        }
-    //    }
+    public var dataSource: [CategoryViewModel] = [] {
+        didSet {
+            categoryCollectionView.reloadData()
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -65,22 +65,19 @@ class CategoryCollectionView: UIView {
 extension CategoryCollectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
-        //        return dataSource.count
+        return dataSource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCollectionViewCell.identifier, for: indexPath) as!
         CategoryCollectionViewCell
-        //        cell.setup(model: dataSource[indexPath.row])
+//        cell.setup(category: dataSource[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         let width = collectionView.bounds.width
-        //        let height = dataSource[indexPath.row].productCardSize.height + 55
-        //        return CGSize(width: width, height: height)
         return CGSize(width: width, height: 148)
     }
     

@@ -31,7 +31,6 @@ class CartViewController: UIViewController, CartViewProtocol {
     
     private var payButton: UIButton = {
         let button = UIButton()
-//        button.setTitle("Оплатить 1000000", for: .normal)
         button.tintColor = .white
         button.backgroundColor = Pallete.blueColor
         button.layer.cornerRadius = 10
@@ -48,7 +47,7 @@ class CartViewController: UIViewController, CartViewProtocol {
         view.backgroundColor = .systemBackground
         configurator.configure(with: self)
         view.layer.masksToBounds = true
-
+        
         setupSubviews()
         setupConstraints()
     }

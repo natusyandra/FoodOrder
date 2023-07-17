@@ -31,11 +31,10 @@ class CartCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-     public var countLabel: UILabel = {
+    public var countLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        //text как в figme
-        label.font = UIFont.init(name: "SF Pro Display", size: 14)
+        label.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -87,7 +86,6 @@ class CartCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         productImage.image = UIImage(named: "dishes")
-
     }
     
     @objc func minusButtonPressed() {
@@ -95,7 +93,6 @@ class CartCollectionViewCell: UICollectionViewCell {
             productCount -= 1
             updateLabel()
             delegate?.decreaseItem(at: index, value: productCount)
-//            deletCell()
         }
     }
     
@@ -110,7 +107,7 @@ class CartCollectionViewCell: UICollectionViewCell {
     func updateLabel() {
         countLabel.text = "\(productCount)"
     }
-            
+    
     private func setupSubviews() {
         contentView.addSubview(productImage)
         contentView.addSubview(minusButton)

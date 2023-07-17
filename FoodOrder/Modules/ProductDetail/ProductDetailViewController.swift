@@ -9,15 +9,12 @@ import UIKit
 protocol ProductDetailViewProtocol: AnyObject {
     func setup(viewModel: ProductsViewModel.Product)
     func close()
-    
 }
 
 class ProductDetailViewController: UIViewController {
     
     private lazy var detailView: ProductDetailView = {
         let product = ProductDetailView()
-        product.parametersLabelsVStackView.nameLabel.font = .systemFont(ofSize: 14, weight: UIFont.Weight(rawValue: 500))
-//        product.delegate = self
         product.layer.cornerRadius = 15
         product.translatesAutoresizingMaskIntoConstraints = false
         return product
@@ -25,7 +22,6 @@ class ProductDetailViewController: UIViewController {
     
     var presenter: ProductDetailPresenterProtocol!
     let configurator: ProductDetailConfiguratorProtocol = ProductDetailConfigurator()
-    
     
     // MARK: - Lifecycle methods
     
@@ -47,17 +43,17 @@ class ProductDetailViewController: UIViewController {
         setupConstraints()
         
         detailView.closeButton.addTarget(self,
-                                          action: #selector(closeButtonTaped),
-                                          for: .touchUpInside)
+                                         action: #selector(closeButtonTaped),
+                                         for: .touchUpInside)
         detailView.addToCartButton.addTarget(self,
-                                          action: #selector(tapAddToCartButton),
-                                          for: .touchUpInside)
+                                             action: #selector(tapAddToCartButton),
+                                             for: .touchUpInside)
     }
     
     func setupSubviews() {
         view.addSubview(detailView)
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(closeButtonTaped))
-//        view.addGestureRecognizer(tap)
+        //        let tap = UITapGestureRecognizer(target: self, action: #selector(closeButtonTaped))
+        //        view.addGestureRecognizer(tap)
     }
     
     func setupConstraints() {

@@ -10,7 +10,6 @@ import UIKit
 
 protocol ProductCollectionViewProtocol: AnyObject {
     func selectProduct(_ index: Int)
-//    func setup(viewModel: CategoryViewModel)
 }
 
 class ProductCollectionView: UIView {
@@ -61,10 +60,6 @@ class ProductCollectionView: UIView {
             collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-    
-//    func setup(viewModel: CategoryViewModel) {
-//        dataSource = viewModel.product
-//    }
 }
 
 extension ProductCollectionView: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -89,18 +84,6 @@ extension ProductCollectionView: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         delegate?.selectProduct(indexPath.row)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets.zero
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
     }
 }
 
