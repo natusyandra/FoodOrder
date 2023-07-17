@@ -9,10 +9,10 @@ import UIKit
 
 protocol CartViewProtocol: AnyObject {
     func setup(viewModel: CartViewModel)
-    func selectItem(at index: Int)
+    func setupButtonTitle(title: String)
 }
 
-class CartViewController: UIViewController, CartCollectionViewProtocol {
+class CartViewController: UIViewController, CartViewProtocol {
     
     var presenter: CartPresenterProtocol!
     let configurator: CartConfiguratorProtocol = CartConfigurator()
@@ -31,7 +31,7 @@ class CartViewController: UIViewController, CartCollectionViewProtocol {
     
     private var payButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Оплатить 1000000", for: .normal)
+//        button.setTitle("Оплатить 1000000", for: .normal)
         button.tintColor = .white
         button.backgroundColor = Pallete.blueColor
         button.layer.cornerRadius = 10
@@ -83,13 +83,24 @@ class CartViewController: UIViewController, CartCollectionViewProtocol {
     }
     
     func setup(viewModel: CartViewModel) {
-        cartCollectionView.dataSource = viewModel.items
         self.viewModel = viewModel
+        cartCollectionView.dataSource = viewModel.items
+        setupButtonTitle(title: viewModel.price)
+    }
+    
+    func setupButtonTitle(title: String) {
+        payButton.setTitle(title, for: .normal)
+        payButton.isHidden = title.isEmpty
     }
 }
 
-extension CartViewController: CartViewProtocol {
-    func selectItem(at index: Int) {
-        presenter.selectItem(at: index)
+extension CartViewController: CartCollectionViewProtocol {
+    
+    func increaseItem(at index: Int, value: Int) {
+        presenter.increaseItem(at: index)
+    }
+    
+    func decreaseItem(at index: Int, value: Int) {
+        presenter.decreaseItem(at: index)
     }
 }

@@ -24,7 +24,13 @@ class CartStoreService {
     var items: [CartItemModel] = []
     
     func addToCart(product: ProductsModel.Product) {
-        items.append(CartItemModel(count: 1, product: product))
+        if let index = items.firstIndex(where: { item in
+            return item.product.id == product.id
+        }) {
+            items[index].count += 1
+        } else {
+            items.append(CartItemModel(count: 1, product: product))
+        }
     }
     
     func increaseItem(index: Int) {

@@ -8,8 +8,8 @@ import Foundation
 import UIKit
 
 protocol CartCollectionViewProtocol: AnyObject {
-    func selectItem(at index: Int)
-    
+    func increaseItem(at index: Int, value: Int)
+    func decreaseItem(at index: Int, value: Int)
 }
 
 class CartCollectionView: UIView {
@@ -73,7 +73,7 @@ extension CartCollectionView: UICollectionViewDataSource, UICollectionViewDelega
         CartCollectionViewCell
         cell.setup(item: dataSource[indexPath.row])
         cell.index = indexPath.row
-        
+        cell.delegate = delegate
         return cell
     }
     
@@ -84,7 +84,6 @@ extension CartCollectionView: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.selectItem(at: indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
