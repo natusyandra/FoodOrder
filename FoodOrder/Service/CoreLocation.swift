@@ -14,6 +14,8 @@ public class GetLocation: NSObject, CLLocationManagerDelegate {
     var locationServicesEnabled = false
     var didFailWithError: Error?
     
+    ///sdfsd
+    
     public func run(callback: @escaping (CLLocation?) -> Void) {
         locationCallback = callback
         manager.delegate = self
