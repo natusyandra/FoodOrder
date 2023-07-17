@@ -9,6 +9,7 @@ import Foundation
 
 struct CartViewModel {
     var items: [CartItemViewModel]
+    var price: String
 }
 
 struct CartModel {
@@ -23,7 +24,19 @@ class CartUseCases {
             product.description = nil
             return CartItemViewModel(count: item.count, product: product)
         }
-        return CartViewModel(items: items)
+        let price = getTotalPrice(model: model)
+        return CartViewModel(items: items, price: price)
+    }
+    
+    func getTotalPrice(model: CartModel) -> String {
+        var price = 0
+        for item in model.items {
+            price += item.product.price * item.count
+        }
+        if price == 0 {
+            return ""
+        }
+        return "Оплатить \(price) ₽"
     }
 }
 

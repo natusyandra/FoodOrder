@@ -31,10 +31,8 @@ class CartCollectionViewCell: UICollectionViewCell {
         return button
     }()
     
-    private var countLabel: UILabel = {
+     public var countLabel: UILabel = {
         let label = UILabel()
-        let count = 0
-        label.text = "\(count)"
         label.textAlignment = .center
         //text как в figme
         label.font = UIFont.init(name: "SF Pro Display", size: 14)
@@ -69,6 +67,8 @@ class CartCollectionViewCell: UICollectionViewCell {
         return stack
     }()
     
+    public var delegate: CartCollectionViewProtocol?
+    
     var productCount = 0
     public var index: Int = 0
     
@@ -79,7 +79,6 @@ class CartCollectionViewCell: UICollectionViewCell {
         setupConstraints()
         minusButton.addTarget(self, action: #selector(minusButtonPressed), for: .touchUpInside)
         plusButton.addTarget(self, action: #selector(plusButtonPressed), for: .touchUpInside)
-        
     }
     
     required init?(coder: NSCoder) {
@@ -88,12 +87,15 @@ class CartCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         productImage.image = UIImage(named: "dishes")
+
     }
     
     @objc func minusButtonPressed() {
         if productCount > 0 {
             productCount -= 1
             updateLabel()
+            delegate?.decreaseItem(at: index, value: productCount)
+//            deletCell()
         }
     }
     
@@ -101,13 +103,14 @@ class CartCollectionViewCell: UICollectionViewCell {
         if productCount < 10 {
             productCount += 1
             updateLabel()
+            delegate?.increaseItem(at: index, value: productCount)
         }
     }
     
     func updateLabel() {
         countLabel.text = "\(productCount)"
     }
-        
+            
     private func setupSubviews() {
         contentView.addSubview(productImage)
         contentView.addSubview(minusButton)
@@ -139,9 +142,8 @@ class CartCollectionViewCell: UICollectionViewCell {
     public func setup(item: CartItemViewModel) {
         downloadImage(urlString: item.product.imageUrl)
         parametersLabelsVStackView.setup(viewModel: item.product)
-//        parametersLabelsVStackView.nameLabel.text = items.product.name
-//        parametersLabelsVStackView.weightLabel.text = items.product.weight
-//        parametersLabelsVStackView.priceLabel.text = items.product.price
+        countLabel.text = "\(item.count)"
+        productCount = item.count
     }
     
     private func downloadImage(urlString: String) {
@@ -156,12 +158,5 @@ class CartCollectionViewCell: UICollectionViewCell {
         
         task.resume()
     }
-    
-    //    public func setup(model: CategoryCardViewModel) {
-    //        let viewModel = CardCollectionViewModel(cellSize: model.productCardSize, products: model.products)
-    //        categoryLabel.text = model.title
-    ////        cardCollectionView.dataSource = model.products
-    //        cardCollectionView.setup(viewModel: viewModel)
-    //    }
 }
 

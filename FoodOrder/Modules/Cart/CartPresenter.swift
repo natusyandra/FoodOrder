@@ -10,9 +10,9 @@ import Foundation
 protocol CartPresenterProtocol: AnyObject {
     var router: CartRouterProtocol! { set get }
     func response(model: CartModel)
-//    func setup(model: CartModel)
     func getCardItems()
-    func selectItem(at index: Int)
+    func increaseItem(at index: Int)
+    func decreaseItem(at index: Int)
 }
 
 class CartPresenter: CartPresenterProtocol {
@@ -29,7 +29,6 @@ class CartPresenter: CartPresenterProtocol {
     
     func response(model: CartModel) {
         self.model = model
-//        filterProducts = model.products
         let viewModel: CartViewModel = CartUseCases().map(model: model)
         view.setup(viewModel: viewModel)
     }
@@ -38,14 +37,25 @@ class CartPresenter: CartPresenterProtocol {
         interactor.getCardItems()
     }
     
-    func selectItem(at index: Int) {
-        guard let model = model else { return }
-        let tag = model.tags[index]
-        let filterProducts = model.products.filter { item in
-            return item.tags.contains(tag.value)
+    func increaseItem(at index: Int) {
+        model?.items[index].count += 1
+        updatePrice()
+        CartStoreService.shared.increaseItem(index: index)
+    }
+    
+    func decreaseItem(at index: Int) {
+        model?.items[index].count -= 1
+        updatePrice()
+        CartStoreService.shared.decreaseItem(index: index)
+        if model?.items[index].count == 0 {
+            interactor.getCardItems()
         }
-        self.filterProducts = filterProducts
-        let filtredViewModelProducts = ProductUseCases().map(products: filterProducts)
-        view.setup(products: filtredViewModelProducts)
+    }
+    
+    private func updatePrice() {
+        guard let model = model else { return }
+        let price = CartUseCases().getTotalPrice(model: model)
+        view.setupButtonTitle(title: price)
     }
 }
+
