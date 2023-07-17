@@ -11,6 +11,7 @@ protocol CategoryPresenterProtocol: AnyObject {
     var router: CategoryRouterProtocol! { set get }
     
     func response(model: CategoryModel)
+    func response(model: NavigationBarModel)
     func selectItem(_ index: Int)
     func getCategories()
 }
@@ -29,10 +30,12 @@ class CategoryPresenter: CategoryPresenterProtocol {
     
     func response(model: CategoryModel) {
         self.model = model
-        let viewModel = CategoryViewModel(
-            location: CategoryViewModel.LocationData(cityName: "", date: ""),
-            categories: model.categories
-        )
+        let viewModel = CategoryViewModel(categories: model.categories)
+        view.setup(viewModel: viewModel)
+    }
+    
+    func response(model: NavigationBarModel) {
+        let viewModel = NavigationBarUseCases().map(model: model)
         view.setup(viewModel: viewModel)
     }
     

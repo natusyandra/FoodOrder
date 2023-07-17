@@ -8,11 +8,6 @@
 import UIKit
 
 struct CategoryViewModel {
-    struct LocationData {
-        let cityName: String
-        let date: String
-    }
-    let location: LocationData
     let categories: [CategoryModel.Category]
 }
 

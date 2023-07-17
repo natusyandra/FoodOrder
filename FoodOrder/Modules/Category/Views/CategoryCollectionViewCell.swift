@@ -60,21 +60,7 @@ class CategoryCollectionViewCell: UICollectionViewCell {
     }
     
     public func setup(category: CategoryModel.Category) {
-        downloadImage(urlString: category.imageUrl)
+        categoryImage.downloadImage(urlString: category.imageUrl)
         categoryLabel.text = category.name
     }
-    
-    private func downloadImage(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async {
-                self.categoryImage.image = UIImage(data: data)
-            }
-        }
-        
-        task.resume()
-    }
 }
-

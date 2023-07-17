@@ -137,23 +137,10 @@ class CartCollectionViewCell: UICollectionViewCell {
     }
     
     public func setup(item: CartItemViewModel) {
-        downloadImage(urlString: item.product.imageUrl)
+        productImage.downloadImage(urlString: item.product.imageUrl)
         parametersLabelsVStackView.setup(viewModel: item.product)
         countLabel.text = "\(item.count)"
         productCount = item.count
-    }
-    
-    private func downloadImage(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async {
-                self.productImage.image = UIImage(data: data)
-            }
-        }
-        
-        task.resume()
     }
 }
 

@@ -14,8 +14,18 @@ protocol CartInteractorProtocol: AnyObject {
 class CartInteractor {
     weak var presenter: CartPresenterProtocol!
     
+    let geocoderService = GeocoderService()
+    
     required init(presenter: CartPresenterProtocol) {
         self.presenter = presenter
+        startGeoService()
+    }
+    
+    private func startGeoService() {
+        geocoderService.run { [weak self] cityName in
+            let model = NavigationBarModel(cityName: cityName)
+            self?.presenter.response(model: model)
+        }
     }
 }
 

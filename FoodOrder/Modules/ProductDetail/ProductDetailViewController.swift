@@ -73,20 +73,6 @@ class ProductDetailViewController: UIViewController {
     @objc func tapAddToCartButton() {
         presenter.addToCart()
     }
-    
-    
-    private func downloadImage(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async {
-                self.detailView.productImage.image = UIImage(data: data)
-            }
-        }
-        
-        task.resume()
-    }
 }
 
 extension ProductDetailViewController: ProductDetailViewProtocol {
@@ -97,7 +83,7 @@ extension ProductDetailViewController: ProductDetailViewProtocol {
     
     func setup(viewModel: ProductsViewModel.Product) {
         detailView.parametersLabelsVStackView.setup(viewModel: viewModel)
-        downloadImage(urlString: viewModel.imageUrl)
+        detailView.productImage.downloadImage(urlString: viewModel.imageUrl)
     }
 }
 
