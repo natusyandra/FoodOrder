@@ -71,7 +71,7 @@ extension ProductCollectionView: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCollectionViewCell.identifier, for: indexPath) as!
         ProductCollectionViewCell
-        cell.setup(products: dataSource[indexPath.row])
+        cell.setup(product: dataSource[indexPath.row])
         return cell
     }
     

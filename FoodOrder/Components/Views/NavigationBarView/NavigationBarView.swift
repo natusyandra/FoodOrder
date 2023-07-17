@@ -9,9 +9,27 @@ import Foundation
 import UIKit
 import CoreLocation
 
+struct NavigationBarViewModel {
+    let cityName: String?
+    let date: String
+}
+
+struct NavigationBarModel {
+    let cityName: String?
+    let date: Date = Date()
+}
+
+class NavigationBarUseCases {
+    func map(model: NavigationBarModel) -> NavigationBarViewModel {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd MMMM, yyyy"
+        let formattedDate = dateFormatter.string(from: model.date)
+        return NavigationBarViewModel(cityName: model.cityName, date: formattedDate)
+    }
+}
+
 class NavigationBarView: UIStackView {
     
-    let getLocation = GetLocation()
     
     private lazy var locationImage: UIImageView = {
         let image = UIImageView()
@@ -29,10 +47,6 @@ class NavigationBarView: UIStackView {
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM, yyyy"
-        let formattedDate = dateFormatter.string(from: currentDate)
-        label.text = formattedDate
         label.font = UIFont.init(name: "SFProDisplay-Regular", size: 14)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -64,30 +78,6 @@ class NavigationBarView: UIStackView {
         super.init(frame: frame)
         setupSubviews()
         setupConstraints()
-        
-        //в презентер
-        getLocation.run {
-            if let location = $0 {
-                let location = CLLocation(latitude: location.coordinate.latitude , longitude: location.coordinate.longitude)
-                let locale = Locale.init(identifier: "ru_RU")
-                CLGeocoder().reverseGeocodeLocation(location, preferredLocale: locale) { (placemarks, error) in
-                    if let error = error {
-                        print("Reverse geocoding failed: \(error.localizedDescription)")
-                        return
-                    }
-                    
-                    if let placemark = placemarks?.first {
-                        if let address = placemark.administrativeArea {
-                            DispatchQueue.main.async {
-                                self.locationLabel.text = address
-                            }
-                        }
-                    }
-                }
-            } else {
-                print("Get Location failed \(self.getLocation.didFailWithError)")
-            }
-        }
     }
     
     required init(coder: NSCoder) {
@@ -117,6 +107,11 @@ class NavigationBarView: UIStackView {
             profileButton.widthAnchor.constraint(equalToConstant: 44),
             profileButton.heightAnchor.constraint(equalToConstant: 44),
         ])
+    }
+    
+    public func setup(viewModel: NavigationBarViewModel) {
+        locationLabel.text = viewModel.cityName
+        dateLabel.text = viewModel.date
     }
 }
 

@@ -14,8 +14,18 @@ protocol CategoryInteractorProtocol: AnyObject {
 class CategoryInteractor {
     weak var presenter: CategoryPresenterProtocol!
     
+    let geocoderService = GeocoderService()
+    
     required init(presenter: CategoryPresenterProtocol) {
         self.presenter = presenter
+        startGeoService()
+    }
+    
+    private func startGeoService() {
+        geocoderService.run { [weak self] cityName in
+            let model = NavigationBarModel(cityName: cityName)
+            self?.presenter.response(model: model)
+        }
     }
 }
 

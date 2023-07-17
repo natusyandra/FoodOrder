@@ -66,22 +66,9 @@ class ProductCollectionViewCell: UICollectionViewCell {
     }
     
     
-    public func setup(products: ProductsViewModel.Product) {
-        downloadImage(urlString: products.imageUrl)
-        productLabel.text = products.name
-    }
-    
-    private func downloadImage(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            DispatchQueue.main.async {
-                self.productImage.image = UIImage(data: data)
-            }
-        }
-        
-        task.resume()
+    public func setup(product: ProductsViewModel.Product) {
+        productImage.downloadImage(urlString: product.imageUrl)
+        productLabel.text = product.name
     }
 }
 

@@ -10,6 +10,7 @@ import Foundation
 protocol CartPresenterProtocol: AnyObject {
     var router: CartRouterProtocol! { set get }
     func response(model: CartModel)
+    func response(model: NavigationBarModel)
     func getCardItems()
     func increaseItem(at index: Int)
     func decreaseItem(at index: Int)
@@ -30,6 +31,11 @@ class CartPresenter: CartPresenterProtocol {
     func response(model: CartModel) {
         self.model = model
         let viewModel: CartViewModel = CartUseCases().map(model: model)
+        view.setup(viewModel: viewModel)
+    }
+    
+    func response(model: NavigationBarModel) {
+        let viewModel = NavigationBarUseCases().map(model: model)
         view.setup(viewModel: viewModel)
     }
     

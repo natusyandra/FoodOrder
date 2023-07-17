@@ -9,6 +9,7 @@ import UIKit
 
 protocol CategoryViewProtocol: AnyObject {
     func setup(viewModel: CategoryViewModel)
+    func setup(viewModel: NavigationBarViewModel)
 }
 
 class CategoryViewController: UIViewController, CategoryViewProtocol {
@@ -70,6 +71,10 @@ class CategoryViewController: UIViewController, CategoryViewProtocol {
     func setup(viewModel: CategoryViewModel) {
         dataSource = viewModel.categories
         categoryCollectionView.reloadData()
+    }
+    
+    func setup(viewModel: NavigationBarViewModel) {
+        navigationBar.setup(viewModel: viewModel)
     }
 }
 

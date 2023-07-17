@@ -16,6 +16,8 @@
 		15453B9D2A5D04250087A8B8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15453B9B2A5D04250087A8B8 /* LaunchScreen.storyboard */; };
 		15ACC0242A64EB0700B34BC8 /* SFProDisplay-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15ACC0232A64EADC00B34BC8 /* SFProDisplay-Regular.ttf */; };
 		15ACC0262A64EF2E00B34BC8 /* SFProDisplay-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15ACC0252A64EF0000B34BC8 /* SFProDisplay-Medium.ttf */; };
+		15ACC02A2A650DF300B34BC8 /* GeocoderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ACC0292A650DF300B34BC8 /* GeocoderService.swift */; };
+		15ACC02D2A6510B000B34BC8 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15ACC02C2A6510B000B34BC8 /* UIImageView+Extensions.swift */; };
 		15C8BA562A5D08DF00C12C98 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BA552A5D08DF00C12C98 /* CategoryPresenter.swift */; };
 		15C8BA592A5D08FF00C12C98 /* CategoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BA582A5D08FF00C12C98 /* CategoryInteractor.swift */; };
 		15C8BA5B2A5D091300C12C98 /* CategoryRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BA5A2A5D091300C12C98 /* CategoryRouter.swift */; };
@@ -53,7 +55,6 @@
 		15C8BAB82A6161A200C12C98 /* ProductModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BAB72A6161A200C12C98 /* ProductModels.swift */; };
 		15C8BABD2A639B6C00C12C98 /* CartStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BABC2A639B6C00C12C98 /* CartStoreService.swift */; };
 		15C8BABF2A63A40500C12C98 /* CartModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BABE2A63A40500C12C98 /* CartModels.swift */; };
-		15C8BAC52A64CE8A00C12C98 /* CoreLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C8BAC42A64CE8A00C12C98 /* CoreLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,8 @@
 		15453B9E2A5D04250087A8B8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15ACC0232A64EADC00B34BC8 /* SFProDisplay-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Regular.ttf"; sourceTree = "<group>"; };
 		15ACC0252A64EF0000B34BC8 /* SFProDisplay-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProDisplay-Medium.ttf"; sourceTree = "<group>"; };
+		15ACC0292A650DF300B34BC8 /* GeocoderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocoderService.swift; sourceTree = "<group>"; };
+		15ACC02C2A6510B000B34BC8 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		15C8BA552A5D08DF00C12C98 /* CategoryPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresenter.swift; sourceTree = "<group>"; };
 		15C8BA582A5D08FF00C12C98 /* CategoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryInteractor.swift; sourceTree = "<group>"; };
 		15C8BA5A2A5D091300C12C98 /* CategoryRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRouter.swift; sourceTree = "<group>"; };
@@ -105,7 +108,6 @@
 		15C8BAB72A6161A200C12C98 /* ProductModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModels.swift; sourceTree = "<group>"; };
 		15C8BABC2A639B6C00C12C98 /* CartStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartStoreService.swift; sourceTree = "<group>"; };
 		15C8BABE2A63A40500C12C98 /* CartModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartModels.swift; sourceTree = "<group>"; };
-		15C8BAC42A64CE8A00C12C98 /* CoreLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreLocation.swift; sourceTree = "<group>"; };
 		15C8BAC82A64D0FA00C12C98 /* FakeLocation.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = FakeLocation.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -177,6 +179,14 @@
 				15C8BAB32A60E00200C12C98 /* ProductDetailStack.swift */,
 			);
 			path = ProductDetailStack;
+			sourceTree = "<group>";
+		};
+		15ACC02B2A65109200B34BC8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				15ACC02C2A6510B000B34BC8 /* UIImageView+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		15C8BA532A5D085E00C12C98 /* Category */ = {
@@ -260,6 +270,7 @@
 		15C8BA982A5EBA1700C12C98 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				15ACC02B2A65109200B34BC8 /* Extensions */,
 				15ACC0272A65075900B34BC8 /* Color */,
 				15ACC0222A64EAB900B34BC8 /* Fonts */,
 				15C8BA5E2A5D0D3D00C12C98 /* Views */,
@@ -285,7 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				15C8BABC2A639B6C00C12C98 /* CartStoreService.swift */,
-				15C8BAC42A64CE8A00C12C98 /* CoreLocation.swift */,
+				15ACC0292A650DF300B34BC8 /* GeocoderService.swift */,
 				15C8BAC82A64D0FA00C12C98 /* FakeLocation.gpx */,
 			);
 			path = Service;
@@ -402,12 +413,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				15C8BA562A5D08DF00C12C98 /* CategoryPresenter.swift in Sources */,
-				15C8BAC52A64CE8A00C12C98 /* CoreLocation.swift in Sources */,
 				15C8BABD2A639B6C00C12C98 /* CartStoreService.swift in Sources */,
 				15C8BA722A5D36CF00C12C98 /* CategoryCollectionViewCell.swift in Sources */,
 				15C8BA5D2A5D092C00C12C98 /* CategoryConfigurator.swift in Sources */,
 				15C8BA5B2A5D091300C12C98 /* CategoryRouter.swift in Sources */,
 				15C8BA772A5E45B400C12C98 /* ProductsPresenter.swift in Sources */,
+				15ACC02A2A650DF300B34BC8 /* GeocoderService.swift in Sources */,
 				15C8BA9C2A5EBA3100C12C98 /* UIColor+Hex.swift in Sources */,
 				15C8BA812A5E530900C12C98 /* ProductTagsCollectionView.swift in Sources */,
 				15C8BAA52A5FA01D00C12C98 /* CartInteractor.swift in Sources */,
@@ -415,6 +426,7 @@
 				15C8BAA92A5FA03E00C12C98 /* CartConfigurator.swift in Sources */,
 				15C8BA792A5E45BF00C12C98 /* ProductsInteractor.swift in Sources */,
 				15C8BA592A5D08FF00C12C98 /* CategoryInteractor.swift in Sources */,
+				15ACC02D2A6510B000B34BC8 /* UIImageView+Extensions.swift in Sources */,
 				15C8BA862A5E57D000C12C98 /* ProductCollectionViewCell.swift in Sources */,
 				15C8BA962A5E80B300C12C98 /* ProductDetailView.swift in Sources */,
 				15C8BA8E2A5E7EBC00C12C98 /* ProductDetailPresenter.swift in Sources */,

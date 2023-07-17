@@ -9,6 +9,7 @@ import UIKit
 
 protocol CartViewProtocol: AnyObject {
     func setup(viewModel: CartViewModel)
+    func setup(viewModel: NavigationBarViewModel)
     func setupButtonTitle(title: String)
 }
 
@@ -85,6 +86,10 @@ class CartViewController: UIViewController, CartViewProtocol {
         self.viewModel = viewModel
         cartCollectionView.dataSource = viewModel.items
         setupButtonTitle(title: viewModel.price)
+    }
+    
+    func setup(viewModel: NavigationBarViewModel) {
+        navigationBar.setup(viewModel: viewModel)
     }
     
     func setupButtonTitle(title: String) {
